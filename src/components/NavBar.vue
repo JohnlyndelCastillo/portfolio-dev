@@ -10,7 +10,7 @@
                 <a class="" href="#about">About</a>
             </li>
             <li>
-                <a class="" href="/contact">Contact</a>
+                <a class="" href="contact">Contact</a>
             </li>
             <li>
                 <a class="" href="/project">Project</a>
