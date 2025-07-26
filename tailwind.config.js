@@ -7,7 +7,7 @@ export default {
       colors: {
         'main-background': '#3E5879',
         'background-left': '#FFD2A0 ',
-        'background-right': '#FFCCEA',
+        'background-right': '#FFF6E3',
         'background-top': '#CDC1FF',
         'cv-button': '#FEEE91',
         'facebook': '#81BFDA',
