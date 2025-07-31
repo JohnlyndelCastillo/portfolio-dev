@@ -5,3 +5,7 @@
 html {
     scroll-behavior: smooth;
   }
+
+.link-underline {
+  @apply inline-block pb-[2px] border-b-2 border-transparent hover:border-black transition-all duration-300;
+}

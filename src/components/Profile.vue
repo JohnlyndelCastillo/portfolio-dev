@@ -14,7 +14,7 @@
                 Johnlyn del Castillo
             </h1>
             <h6 class="text-lg font-bold">
-                3rd Year Computer Engineering Student
+                3rd Year Computer Engineering Technology Student
             </h6>
             <button class=" mt-7 border-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] border-black p-3 font-semibold bg-cv-button cursor-pointer">
                 Download CV

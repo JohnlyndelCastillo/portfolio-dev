@@ -3,7 +3,6 @@ export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      scrollBehavior: ['smooth'],
       colors: {
         'main-background': '#3E5879',
         'background-left': '#FFD2A0 ',
