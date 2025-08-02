@@ -6,7 +6,7 @@
         </div>
         
         <!-- Right side with text aligned from the top and gray background -->
-        <div class="flex flex-col items-start justify-start w-1/2 bg-background-right p-8 gap-3">
+        <div class="flex flex-col items-start justify-start w-1/2 bg-main-background p-8 gap-3">
             <h6 class="text-lg font-semibold mt-24">
                 Hello I'm 
             </h6>
@@ -22,13 +22,13 @@
             </button>
             <div class="flex flex-row gap-3 mt-6">
                 <!-- Boxed icons with same size -->
-                <div class="w-12 h-12 flex items-center justify-center border-2 border-black rounded-lg border-b-4 border-r-4 bg-facebook cursor-pointer">
+                <div class="w-12 h-12 flex items-center justify-center icons-shader bg-facebook cursor-pointer">
                     <i class="fa-brands fa-facebook-f text-xl"></i>
                 </div>
-                <div class="w-12 h-12 flex items-center justify-center border-2 border-black rounded-lg border-b-4 border-r-4 bg-github cursor-pointer">
+                <div class="w-12 h-12 flex items-center justify-center icons-shader bg-github cursor-pointer">
                     <i class="fa-brands fa-github text-xl"></i>
                 </div>
-                <div class="w-12 h-12 flex items-center justify-center border-2 border-black rounded-lg border-b-4 border-r-4 bg-gmail cursor-pointer">
+                <div class="w-12 h-12 flex items-center justify-center icons-shader bg-gmail cursor-pointer">
                     <i class="fa-solid fa-envelope text-xl"></i>
                 </div>
             </div>
