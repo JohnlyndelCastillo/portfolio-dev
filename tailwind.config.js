@@ -10,8 +10,6 @@ export default {
         'github': '#F6C794',
         'gmail': '#FF8383',
         'card-bg': '#DCCFC0'
-
-
       },
       fontFamily: {
         Lexend: ["Lexend Exa, serif"],
