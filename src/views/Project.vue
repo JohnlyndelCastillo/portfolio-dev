@@ -6,7 +6,7 @@
             <h1 class="text-5xl font-bold">Projects</h1>
         </nav>
         <div class="flex items-end justify-end p-8">
-            <router-link to="#skills">
+            <router-link to="#skills" aria-label="Scrolls to skills section">
                 <i class="fa-solid fa-caret-down text-5xl cursor-pointer"></i>
             </router-link>
         </div>
