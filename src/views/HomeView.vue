@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section id="profile">
     <div class=" flex flex-col min-h-screen">
       <Navbar/>
       <Profile/>

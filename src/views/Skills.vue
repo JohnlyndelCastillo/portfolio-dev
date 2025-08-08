@@ -1,10 +1,15 @@
 <template>
     <div>
-        <header class="top-0 font-Poppins bg-main-background">
+        <header class="flex flex-row top-0 font-Poppins bg-main-background">
         <nav class="container flex flex-col items-center justify-center">
             <h6 class="text-lg font-semibold ">My Efficiency!</h6>
             <h1 class="text-5xl font-bold">Skills</h1>
         </nav>
+        <div class="flex items-end justify-end p-8">
+            <router-link to="#contact">
+                <i class="fa-solid fa-caret-down text-5xl cursor-pointer"></i>
+            </router-link>
+        </div>
      </header>
         <div class="h-[calc(100%)] flex font-Poppins bg-main-background">
             <div class="flex w-1/2 p-8">

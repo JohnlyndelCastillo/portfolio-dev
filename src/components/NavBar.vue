@@ -4,19 +4,19 @@
         <h1 class="text-black text-3xl font-extrabold ml-10"> JDC </h1>
         <ul class=" scroll-smooth inline-flex gap-20 items-center text-base font-bold text-black">
             <li>
-                <a class="link-underline" href="/">Home</a>
+                <router-link class="link-underline" to="/#profile">Home</router-link>
             </li>
             <li>
-                <a class="link-underline" href="#about">About</a>
+                <router-link class="link-underline" to="/#about">About</router-link>
             </li>
             <li>
-                <a class="link-underline" href="#contact">Contact</a>
+                <router-link class="link-underline" to="/#contact">Contact</router-link>
             </li>
             <li>
-                <a class="link-underline" href="#project">Project</a>
+                <router-link class="link-underline" to="/#project">Project</router-link>
             </li>
             <li>
-                <a class="link-underline" href="#skills">Skills</a>
+                <router-link class="link-underline" to="/#skills">Skills</router-link>
             </li>
         </ul>
       </nav>
