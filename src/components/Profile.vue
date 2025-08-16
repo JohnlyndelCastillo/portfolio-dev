@@ -16,7 +16,7 @@
             <h6 class="text-lg font-bold">
                 3rd Year Computer Engineering Technology Student
             </h6>
-            <button class=" mt-7 border-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] border-black p-3 font-semibold bg-cv-button cursor-pointer">
+            <button class=" mt-7 border-black border-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]  p-3 font-semibold bg-cv-button cursor-pointer">
                 Download CV
                 <i class="fa-solid fa-download text-xl"></i>
             </button>

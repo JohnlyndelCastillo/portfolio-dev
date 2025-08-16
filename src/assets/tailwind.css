@@ -14,9 +14,21 @@ html {
 }
 
 .skills-icon-shader {
-  @apply p-8 border-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-2xl font-bold tracking-tight text-black w-fit border-black
+  @apply border-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] text-2xl font-bold tracking-tight text-black w-fit border-black bg-cv-button flex flex-col items-center p-6
 }
 
 .label-card-about {
   @apply p-2 mb-2 border-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-2xl font-bold tracking-tight text-black w-fit bg-cv-button border-black
+}
+
+.efficiency-bar {
+  @apply flex-1 h-4 bg-gray-200 rounded-full overflow-hidden
+}
+
+.efficiency-bar-percentage {
+  @apply flex justify-center items-center bg-cv-button text-xs text-black text-center whitespace-nowrap transition-all duration-500
+}
+
+.skills-card-label {
+  @apply p-3 mb-2 border-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-2xl font-bold tracking-tight text-black w-fit bg-cv-button border-black
 }

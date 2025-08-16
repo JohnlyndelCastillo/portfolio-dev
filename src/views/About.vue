@@ -37,7 +37,7 @@
                 </card>
         </div>
         <!-- Right side with two cards -->
-        <div class="flex flex-col w-1/2 p-8 gap-4 h-[600px]">
+        <div class="flex flex-col w-1/2 p-8 gap-4">
             <card class="flex-1 w-full bg-card-bg icons-shader p-8">
                 <label class="label-card-about"> 
                     Why Software QA?
