@@ -193,7 +193,7 @@
                             </div>
                             <!-- Slack-->
                             <div class="flex items-center space-x-4">
-                                <label class="w-20 font-medium">Notion</label> 
+                                <label class="w-20 font-medium">Slack</label> 
                                     <div 
                                         class="efficiency-bar"
                                         role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
