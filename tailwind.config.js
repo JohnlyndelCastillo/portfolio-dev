@@ -6,7 +6,7 @@ export default {
       colors: {
         'main-background': '#FFF6E3',
         'cv-button': '#FEEE91',
-        'facebook': '#81BFDA',
+        'linkedin': '#81BFDA',
         'github': '#F6C794',
         'gmail': '#FF8383',
         'card-bg': '#DCCFC0'
