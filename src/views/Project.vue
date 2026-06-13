@@ -53,7 +53,7 @@
           <span class="text-xs font-semibold px-2 py-1 border-2 rounded-full border-black bg-cv-button shrink-0 ml-2">Personal</span>
         </div>
         <p class="text-black text-sm leading-relaxed mb-4">
-          A cute, lightweight daily task tracker built for QA productivity. No frameworks, no build step — just a single HTML file you can deploy to Vercel in seconds.
+          A cute, lightweight daily task tracker built for QA productivity. Uses localStorage to store tasks and supports install via adding from Chrome
         </p>
         <!-- Tech badges -->
         <div class="flex flex-wrap gap-2 mb-6">
