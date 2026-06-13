@@ -17,7 +17,6 @@
 
       <!-- Brief Introduction: full width, always open -->
       <div class="w-full bg-card-bg icons-shader border-black border-2">
-        <!-- Mobile: static header (no toggle) -->
         <div class="p-6 sm:p-8">
           <label class="p-3 mb-4 inline-block border-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-xl sm:text-2xl font-bold tracking-tight text-black bg-cv-button border-black">
             Brief Introduction
@@ -49,9 +48,8 @@
 
         <!-- Why Software QA -->
         <div class="w-full bg-card-bg icons-shader border-black border-2">
-          <!-- Mobile toggle header -->
           <button
-            class="w-full flex items-center justify-between p-6 sm:p-8 lg:cursor-default"
+            class="w-full flex items-center justify-between p-6 sm:p-8 lg:pointer-events-none"
             @click="toggleMobile('whyqa')"
           >
             <label class="label-card-about cursor-pointer lg:cursor-default">Why Software QA?</label>
@@ -60,10 +58,9 @@
               :class="{ 'rotate-180': open.whyqa }"
             ></i>
           </button>
-          <!-- Content: always visible on desktop, toggleable on mobile -->
           <div
-            class="overflow-hidden transition-all duration-300 lg:!max-h-none lg:!opacity-100"
-            :class="open.whyqa ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 lg:max-h-none lg:opacity-100'"
+            class="overflow-hidden transition-all duration-300"
+            :class="open.whyqa ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 lg:max-h-[600px] lg:opacity-100'"
           >
             <div class="space-y-4 px-6 pb-6 sm:px-8 sm:pb-8">
               <p class="text-black text-sm sm:text-base">
@@ -85,9 +82,8 @@
 
         <!-- Growth Goals -->
         <div class="w-full bg-card-bg icons-shader border-black border-2">
-          <!-- Mobile toggle header -->
           <button
-            class="w-full flex items-center justify-between p-6 sm:p-8 lg:cursor-default"
+            class="w-full flex items-center justify-between p-6 sm:p-8 lg:pointer-events-none"
             @click="toggleMobile('growth')"
           >
             <label class="label-card-about cursor-pointer lg:cursor-default">
@@ -99,10 +95,9 @@
               :class="{ 'rotate-180': open.growth }"
             ></i>
           </button>
-          <!-- Content: always visible on desktop, toggleable on mobile -->
           <div
-            class="overflow-hidden transition-all duration-300 lg:!max-h-none lg:!opacity-100"
-            :class="open.growth ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 lg:max-h-none lg:opacity-100'"
+            class="overflow-hidden transition-all duration-300"
+            :class="open.growth ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 lg:max-h-[600px] lg:opacity-100'"
           >
             <div class="space-y-4 px-6 pb-6 sm:px-8 sm:pb-8">
               <p class="text-black text-sm sm:text-base">
@@ -136,7 +131,6 @@ const open = reactive({
 })
 
 function toggleMobile(key) {
-  // Only toggle on mobile (lg breakpoint = 1024px)
   if (window.innerWidth < 1024) {
     open[key] = !open[key]
   }
