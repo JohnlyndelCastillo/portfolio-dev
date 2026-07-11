@@ -12,7 +12,9 @@
 
       <!-- Testing Tools -->
       <div class="bg-card-bg icons-shader border-black border-2 p-6">
-        <p class="skills-card-label mb-6">Testing Tools</p>
+        <p class="skills-card-label mb-6">Testing Tools
+          <Icon icon="fluent-mdl2:test-auto-solid" class="inline ml-2" />
+        </p>
         <div class="grid grid-cols-3 gap-5 place-items-center mt-6">
           <div class="skills-icon-shader">
             <Icon icon="simple-icons:playwright" class="text-4xl sm:text-5xl" />
@@ -28,7 +30,9 @@
 
       <!-- Version Control -->
       <div class="bg-card-bg icons-shader border-black border-2 p-6">
-        <p class="skills-card-label mb-6">Version Control</p>
+        <p class="skills-card-label mb-6">Version Control
+          <Icon icon="pajamas:git-merge" class="inline ml-2" />
+        </p>
         <div class="grid grid-cols-3 gap-5 place-items-center mt-6">
           <div class="skills-icon-shader">
             <Icon icon="mdi:git" class="text-4xl sm:text-5xl" />
@@ -41,7 +45,9 @@
 
       <!-- Collaboration -->
       <div class="bg-card-bg icons-shader border-black border-2 p-6">
-        <p class="skills-card-label mb-6">Collaboration</p>
+        <p class="skills-card-label mb-6">Collaboration
+          <Icon icon="mdi:users-group" class="inline ml-2" />
+        </p>
         <div class="grid grid-cols-3 gap-5 place-items-center mt-6">
           <div class="skills-icon-shader">
             <Icon icon="mdi:slack" class="text-4xl sm:text-5xl" />
@@ -57,7 +63,9 @@
 
       <!-- Development -->
       <div class="bg-card-bg icons-shader border-black border-2 p-6">
-        <p class="skills-card-label mb-6">Development</p>
+        <p class="skills-card-label mb-6">Development
+          <Icon icon="material-symbols:terminal" class="inline ml-2" />
+        </p>
         <div class="grid grid-cols-3 gap-5 place-items-center mt-6">
           <div class="skills-icon-shader">
             <Icon icon="mdi:language-php" class="text-4xl sm:text-5xl" />
