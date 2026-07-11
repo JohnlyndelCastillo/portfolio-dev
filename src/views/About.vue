@@ -6,40 +6,33 @@
         <h6 class="text-lg font-semibold">Get To Know More</h6>
         <h1 class="text-4xl sm:text-5xl font-bold">About Me!</h1>
       </nav>
-      <div class="flex items-center p-4">
-        <router-link to="#project" aria-label="Scrolls to projects section">
-          <i class="fa-solid fa-caret-down text-5xl cursor-pointer"></i>
-        </router-link>
-      </div>
     </header>
 
     <div class="flex flex-col gap-4 px-6 pb-8 lg:px-8">
 
       <!-- Brief Introduction: full width, always open -->
-      <div class="w-full bg-card-bg icons-shader border-black border-2">
-        <div class="p-6 sm:p-8">
-          <label class="p-3 mb-4 inline-block border-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-xl sm:text-2xl font-bold tracking-tight text-black bg-cv-button border-black">
-            Brief Introduction
-            <i class="fa-solid fa-circle-info pl-2"></i>
-          </label>
-          <div class="text-black space-y-4 font-normal text-sm sm:text-base leading-relaxed mt-2">
-            <p>
-              Hi, I'm Johnlyn del Castillo, a Junior Software QA Engineer at Sun* Philippines Inc.
-              I completed a diploma in Computer Engineering Technology at CITE Technical Institute Inc.
-              and spent 15 months as a QA intern before transitioning to my current role in January 2026.
-            </p>
-            <p>
-              I am currently involved in a structured SDLC project for a prominent Japanese tech client,
-              where I handle manual testing, write and maintain test cases, log and track defects or bugs,
-              and collaborate closely with developers to ensure each release meets quality standards.
-            </p>
-            <p>
-              During my internship, I was recognized with the Best Effort, Special Thanks, and Most Improved Player
-              awards, and received positive feedback from team leaders for my consistent delivery and commitment
-              to continuous growth — all of which laid a strong foundation for my transition into a
-              Junior QA Engineer role.
-            </p>
-          </div>
+      <div class="w-full bg-card-bg icons-shader border-black border-2 p-6 sm:p-8">
+        <label class="p-3 mb-4 inline-block border-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-xl sm:text-2xl font-bold tracking-tight text-black bg-cv-button border-black">
+          Brief Introduction
+          <Icon icon="mdi:information" class="inline ml-2" />
+        </label>
+        <div class="text-black space-y-4 font-normal text-sm sm:text-base leading-relaxed mt-2">
+          <p>
+            Hi, I'm Johnlyn del Castillo, a Junior Software QA Engineer at Sun* Philippines Inc.
+            I completed a diploma in Computer Engineering Technology at CITE Technical Institute Inc.
+            and spent 15 months as a QA intern before transitioning to my current role in January 2025.
+          </p>
+          <p>
+            I am currently involved in a structured SDLC project for a prominent Japanese tech client,
+            where I handle manual testing, write and maintain test cases, log and track defects or bugs,
+            and collaborate closely with developers to ensure each release meets quality standards.
+          </p>
+          <p>
+            During my internship, I was recognized with the Best Effort, Special Thanks, and Most Improved Player
+            awards, and received positive feedback from team leaders for my consistent delivery and commitment
+            to continuous growth — all of which laid a strong foundation for my transition into a
+            Junior QA Engineer role.
+          </p>
         </div>
       </div>
 
@@ -49,18 +42,19 @@
         <!-- Why Software QA -->
         <div class="w-full bg-card-bg icons-shader border-black border-2">
           <button
-            class="w-full flex items-center justify-between p-6 sm:p-8 lg:pointer-events-none"
+            class="w-full flex items-center justify-between p-6 sm:p-8 lg:cursor-default"
             @click="toggleMobile('whyqa')"
           >
             <label class="label-card-about cursor-pointer lg:cursor-default">Why Software QA?</label>
-            <i
-              class="fa-solid fa-chevron-down text-lg transition-transform duration-300 lg:hidden"
+            <Icon
+              icon="mdi:chevron-down"
+              class="text-xl transition-transform duration-300 lg:hidden"
               :class="{ 'rotate-180': open.whyqa }"
-            ></i>
+            />
           </button>
           <div
-            class="overflow-hidden transition-all duration-300"
-            :class="open.whyqa ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 lg:max-h-[600px] lg:opacity-100'"
+            class="overflow-hidden transition-all duration-300 lg:!max-h-none lg:!opacity-100"
+            :class="open.whyqa ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 lg:max-h-none lg:opacity-100'"
           >
             <div class="space-y-4 px-6 pb-6 sm:px-8 sm:pb-8">
               <p class="text-black text-sm sm:text-base">
@@ -83,21 +77,22 @@
         <!-- Growth Goals -->
         <div class="w-full bg-card-bg icons-shader border-black border-2">
           <button
-            class="w-full flex items-center justify-between p-6 sm:p-8 lg:pointer-events-none"
+            class="w-full flex items-center justify-between p-6 sm:p-8 lg:cursor-default"
             @click="toggleMobile('growth')"
           >
             <label class="label-card-about cursor-pointer lg:cursor-default">
               Growth Goals
-              <i class="fa-solid fa-chart-simple ml-2"></i>
+              <Icon icon="mdi:chart-bar" class="inline ml-2" />
             </label>
-            <i
-              class="fa-solid fa-chevron-down text-lg transition-transform duration-300 lg:hidden"
+            <Icon
+              icon="mdi:chevron-down"
+              class="text-xl transition-transform duration-300 lg:hidden"
               :class="{ 'rotate-180': open.growth }"
-            ></i>
+            />
           </button>
           <div
-            class="overflow-hidden transition-all duration-300"
-            :class="open.growth ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 lg:max-h-[600px] lg:opacity-100'"
+            class="overflow-hidden transition-all duration-300 lg:!max-h-none lg:!opacity-100"
+            :class="open.growth ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 lg:max-h-none lg:opacity-100'"
           >
             <div class="space-y-4 px-6 pb-6 sm:px-8 sm:pb-8">
               <p class="text-black text-sm sm:text-base">
@@ -124,6 +119,7 @@
 
 <script setup>
 import { reactive } from 'vue'
+import { Icon } from '@iconify/vue'
 
 const open = reactive({
   whyqa: false,

@@ -18,9 +18,9 @@
     <Skills />
   </section>
 
-  <!-- <section id="contact" class="w-full">
+  <section id="contact" class="w-full">
     <Contact />
-  </section> -->
+  </section>
 </template>
 
 <script setup>
