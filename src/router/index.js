@@ -1,7 +1,5 @@
-// router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,14 +12,15 @@ const router = createRouter({
   ],
   scrollBehavior(to, from, savedPosition) {
     if (to.hash) {
-      return {
-        el: to.hash,
-        behavior: 'smooth',
-      }
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ el: to.hash, behavior: 'smooth' })
+          history.replaceState(null, '', '/')
+        }, 100)
+      })
     }
     return { top: 0 }
   },
-  
 })
 
 export default router

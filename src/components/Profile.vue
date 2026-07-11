@@ -1,12 +1,37 @@
 <template>
   <div class="flex flex-col md:flex-row font-Poppins">
-    <!-- Profile picture -->
+
+    <!-- Terminal panel -->
     <div class="flex items-center justify-center w-full md:w-1/2 bg-[url('/ColoredShapes.svg')] bg-cover p-8 min-h-[40vh] md:min-h-0">
-      <img
-        src="/Company_profile.jpg"
-        alt="Johnlyn del Castillo profile photo"
-        class="w-56 h-64 sm:w-72 sm:h-80 md:w-94 md:h-96 border-2 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-black object-cover"
-      />
+      <div class="w-full max-w-sm border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] bg-card-bg font-mono text-sm">
+
+        <!-- Title bar -->
+        <div class="flex items-center gap-2 px-4 py-2 bg-cv-button border-b-2 border-black">
+          <span class="w-3 h-3 rounded-full border border-black bg-red-400"></span>
+          <span class="w-3 h-3 rounded-full border border-black bg-yellow-300"></span>
+          <span class="w-3 h-3 rounded-full border border-black bg-green-400"></span>
+          <span class="ml-2 text-black text-xs font-semibold">qa-runner — bash</span>
+        </div>
+
+        <!-- Terminal body -->
+        <div class="p-4 min-h-[240px]">
+          <div v-for="(line, i) in visibleLines" :key="i" class="leading-6">
+            <!-- Typed text -->
+            <span :class="line.class">{{ line.displayed }}</span>
+            <!-- Blinking cursor on the currently-typing line -->
+            <span
+              v-if="i === visibleLines.length - 1 && !done"
+              class="inline-block w-[2px] h-4 bg-black align-middle animate-pulse ml-px"
+            ></span>
+          </div>
+          <!-- Idle cursor after everything is done -->
+          <div v-if="done" class="leading-6">
+            <span class="text-black">$ </span>
+            <span class="inline-block w-[2px] h-4 bg-black align-middle animate-pulse"></span>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <!-- Text content -->
@@ -21,20 +46,26 @@
       </button>
 
       <div class="flex flex-row gap-3 mt-4">
-        <div class="w-12 h-12 flex items-center justify-center icons-shader bg-facebook cursor-pointer">
+        <a href="https://www.linkedin.com/in/johnlyn-del-castillo" target="_blank" rel="noopener noreferrer"
+          class="w-12 h-12 flex items-center justify-center icons-shader bg-linkedin cursor-pointer">
           <Icon icon="mdi:linkedin" class="text-xl" />
-        </div>
-        <div class="w-12 h-12 flex items-center justify-center icons-shader bg-github cursor-pointer">
+        </a>
+        <a href="https://github.com/JohnlyndelCastillo" target="_blank" rel="noopener noreferrer"
+          class="w-12 h-12 flex items-center justify-center icons-shader bg-github cursor-pointer">
           <Icon icon="mdi:github" class="text-xl" />
-        </div>
-        <div class="w-12 h-12 flex items-center justify-center icons-shader bg-gmail cursor-pointer">
+        </a>
+        <a href="mailto:johnlyndelcastillo@gmail.com"
+          class="w-12 h-12 flex items-center justify-center icons-shader bg-gmail cursor-pointer">
           <Icon icon="mdi:email" class="text-xl" />
-        </div>
+        </a>
       </div>
     </div>
+
   </div>
 </template>
 
 <script setup>
 import { Icon } from '@iconify/vue'
-</script>
+import { useTerminal } from '@/composables/useTerminal'
+const { visibleLines, done } = useTerminal()
+</script> 

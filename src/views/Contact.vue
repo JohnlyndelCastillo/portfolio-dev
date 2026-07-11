@@ -118,107 +118,13 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
 import { Icon } from '@iconify/vue'
-import emailjs from '@emailjs/browser'
+import { useContactForm } from '@/composables/useContactForm'
 
-const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-const TURNSTILE_SITE_KEY  = import.meta.env.VITE_TURNSTILE_SITE_KEY
-
-const turnstileSiteKey = ref(TURNSTILE_SITE_KEY)
-const turnstileContainer = ref(null)
-const turnstileToken = ref('')
-const formState = ref('idle') // idle | sending | success | error
-
-const form = reactive({ name: '', email: '', message: '' })
-const errors = reactive({ name: '', email: '', message: '', turnstile: '' })
-
-onMounted(() => {
-  // Load Cloudflare Turnstile script
-  if (!document.querySelector('script[src*="turnstile"]')) {
-    const script = document.createElement('script')
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
-    script.async = true
-    script.defer = true
-    document.head.appendChild(script)
-  }
-
-  // Wait for Turnstile to render and capture token
-  const interval = setInterval(() => {
-    if (window.turnstile && turnstileContainer.value) {
-      window.turnstile.render(turnstileContainer.value, {
-        sitekey: TURNSTILE_SITE_KEY,
-        callback: (token) => { turnstileToken.value = token },
-        'expired-callback': () => { turnstileToken.value = '' },
-      })
-      clearInterval(interval)
-    }
-  }, 300)
+const { turnstileContainer, formState, form, errors, handleSubmit } = useContactForm({
+  serviceId:      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+  templateId:     import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+  publicKey:      import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+  turnstileSiteKey: import.meta.env.VITE_TURNSTILE_SITE_KEY,
 })
-
-function validate() {
-  errors.name = ''
-  errors.email = ''
-  errors.message = ''
-  errors.turnstile = ''
-  let valid = true
-
-  if (!form.name.trim()) {
-    errors.name = 'Name is required.'
-    valid = false
-  }
-  if (!form.email.trim()) {
-    errors.email = 'Email is required.'
-    valid = false
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-    errors.email = 'Please enter a valid email.'
-    valid = false
-  }
-  if (!form.message.trim()) {
-    errors.message = 'Message is required.'
-    valid = false
-  }
-  if (!turnstileToken.value) {
-    errors.turnstile = 'Please complete the security check.'
-    valid = false
-  }
-  return valid
-}
-
-async function handleSubmit() {
-  if (!validate()) return
-
-  formState.value = 'sending'
-
-  const now = new Date()
-  const time = now.toLocaleString('en-PH', {
-    timeZone: 'Asia/Manila',
-    dateStyle: 'medium',
-    timeStyle: 'short',
-  })
-
-  try {
-    await emailjs.send(
-      EMAILJS_SERVICE_ID,
-      EMAILJS_TEMPLATE_ID,
-      {
-        name: form.name,
-        email: form.email,
-        message: form.message,
-        time,
-        'cf-turnstile-response': turnstileToken.value,
-      },
-      EMAILJS_PUBLIC_KEY
-    )
-    formState.value = 'success'
-  } catch (err) {
-    console.error('EmailJS error:', err)
-    formState.value = 'error'
-    // Reset turnstile on error
-    if (window.turnstile) window.turnstile.reset()
-    turnstileToken.value = ''
-  }
-}
 </script>

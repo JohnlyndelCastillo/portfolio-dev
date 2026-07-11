@@ -24,10 +24,10 @@
 </template>
 
 <script setup>
-import Navbar from '../components/NavBar.vue'
-import Profile from '../components/Profile.vue'
-import About from './About.vue'
-import Contact from './Contact.vue'
-import Project from './Project.vue'
-import Skills from './Skills.vue'
+import Navbar  from '@/components/NavBar.vue'
+import Profile from '@/components/Profile.vue'
+import About   from '@/views/About.vue'
+import Contact from '@/views/Contact.vue'
+import Project from '@/views/Project.vue'
+import Skills  from '@/views/Skills.vue'
 </script>
