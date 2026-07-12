@@ -7,6 +7,7 @@
       <ul class="hidden md:inline-flex gap-10 items-center text-base font-bold text-black">
         <li><router-link class="link-underline" to="/#profile">Home</router-link></li>
         <li><router-link class="link-underline" to="/#about">About</router-link></li>
+        <li><router-link class="link-underline" to="/#timeline">Timeline</router-link></li>
         <li><router-link class="link-underline" to="/#project">Project</router-link></li>
         <li><router-link class="link-underline" to="/#skills">Skills</router-link></li>
         <li><router-link class="link-underline" to="/#contact">Contact</router-link></li>
@@ -35,6 +36,7 @@
       <ul class="flex flex-col items-center gap-6 py-6 text-base font-bold text-black bg-main-background border-t border-black/10">
         <li><router-link class="link-underline" to="/#profile" @click="closeMenu">Home</router-link></li>
         <li><router-link class="link-underline" to="/#about" @click="closeMenu">About</router-link></li>
+        <li><router-link class="link-underline" to="/#timeline" @click="closeMenu">Timeline</router-link></li>
         <li><router-link class="link-underline" to="/#project" @click="closeMenu">Project</router-link></li>
         <li><router-link class="link-underline" to="/#skills" @click="closeMenu">Skills</router-link></li>
         <li><router-link class="link-underline" to="/#contact" @click="closeMenu">Contact</router-link></li>

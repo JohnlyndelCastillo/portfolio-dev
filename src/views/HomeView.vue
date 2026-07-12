@@ -10,6 +10,10 @@
     <About />
   </section>
 
+  <section id="timeline" class="w-full">
+    <Timeline />
+  </section>
+
   <section id="project" class="w-full">
     <Project />
   </section>
@@ -27,6 +31,7 @@
 import Navbar  from '@/components/NavBar.vue'
 import Profile from '@/components/Profile.vue'
 import About   from '@/views/About.vue'
+import Timeline from '@/views/Timeline.vue'
 import Contact from '@/views/Contact.vue'
 import Project from '@/views/Project.vue'
 import Skills  from '@/views/Skills.vue'
