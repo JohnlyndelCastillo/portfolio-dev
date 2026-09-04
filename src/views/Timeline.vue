@@ -106,16 +106,6 @@
               </div>
             </div>
             <div class="flex items-center gap-2">
-              <!-- Download active file -->
-              <a
-                :href="selectedAward.files[activeFileIndex].file"
-                :download="selectedAward.title"
-                class="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 border-2 border-black bg-main-background shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
-              >
-                <Icon icon="mdi:download" class="text-base" />
-                Download
-              </a>
-              <!-- Close -->
               <button
                 @click="closeModal"
                 class="flex items-center justify-center w-8 h-8 border-2 border-black bg-main-background shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
@@ -151,14 +141,6 @@
             <div class="sm:hidden flex flex-col items-center justify-center gap-4 p-8 text-center h-full min-h-[40vh]">
               <Icon icon="mdi:file-pdf-box" class="text-red-500 text-5xl" />
               <p class="text-sm font-semibold text-black">PDF preview isn't supported on mobile.</p>
-              <a
-                :href="selectedAward.files[activeFileIndex].file"
-                :download="selectedAward.title"
-                class="flex items-center gap-2 text-sm font-semibold px-4 py-2 border-2 border-black bg-cv-button shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all"
-              >
-                <Icon icon="mdi:download" />
-                Download Certificate
-              </a>
             </div>
           </div>
 
