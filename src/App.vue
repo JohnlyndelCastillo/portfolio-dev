@@ -1,11 +1,9 @@
 <template>
-    <div>
-    <RouterView/>
-    </div>
+  <div class="min-h-screen">
+    <RouterView />
+  </div>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router';
-
+import { RouterView } from 'vue-router'
 </script>
-

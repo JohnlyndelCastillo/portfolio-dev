@@ -4,6 +4,7 @@ export const timeline = [
     title: 'Diploma in Computer Engineering Technology',
     org: 'CITE Technical Institute Inc.',
     description: 'Completed a diploma program in Computer Engineering Technology, building a foundation in software development and systems.',
+    resumeDescription: 'Foundation in software development and systems.',
     current: false,
   },
   {
@@ -11,6 +12,7 @@ export const timeline = [
     title: 'QA Trainee — HRIS Project',
     org: 'Sun Asterisk Philippines (DTS)',
     description: 'Accepted as a Dual Training System intern. Worked as a QA Trainee on an internal HRIS project, tracking bugs, logging defects, and verifying fixes.',
+    resumeDescription: 'QA Trainee on an internal HRIS project. Tracked bugs, logged defects, and verified fixes.',
     current: false,
   },
   {
@@ -18,6 +20,7 @@ export const timeline = [
     title: 'QA Trainee — ProOne Project',
     org: 'Sun Asterisk Philippines × Meetsmore',
     description: 'Transferred to the ProOne team, a complex project for Japanese client Meetsmore. Learned Agile Scrum, sprint ceremonies, and expanded QA skills across functional, regression, web, and API testing.',
+    resumeDescription: 'QA Trainee on a complex Japanese client project. Agile Scrum, functional, regression, web, and API testing.',
     current: false,
   },
   {
@@ -25,6 +28,7 @@ export const timeline = [
     title: 'Junior Software QA Engineer',
     org: 'Sun Asterisk Philippines',
     description: 'Received a full-time offer and joined as a Junior QA Engineer, continuing on the ProOne team. Now focused on testing, releases, and bug fixes — while gradually transitioning into AIDD workflows using Claude Code and MCPs.',
+    resumeDescription: 'Full-time QA Engineer on ProOne. Testing, releases, bug fixes, and AIDD workflows with Claude Code and MCPs.',
     current: true,
   },
 ]

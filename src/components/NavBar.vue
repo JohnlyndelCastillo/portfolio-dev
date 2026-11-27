@@ -1,54 +1,154 @@
 <template>
-  <header class="sticky top-0 z-50 bg-main-background font-Lexend shadow-sm">
-    <nav class="container flex items-center justify-between px-6 py-4 mx-auto">
-      <h1 class="text-black text-3xl font-extrabold">JDC</h1>
-
-      <!-- Desktop Nav -->
-      <ul class="hidden md:inline-flex gap-10 items-center text-base font-bold text-black">
-        <li><router-link class="link-underline" to="/#profile">Home</router-link></li>
-        <li><router-link class="link-underline" to="/#about">About</router-link></li>
-        <li><router-link class="link-underline" to="/#timeline">Timeline</router-link></li>
-        <li><router-link class="link-underline" to="/#project">Project</router-link></li>
-        <li><router-link class="link-underline" to="/#skills">Skills</router-link></li>
-        <li><router-link class="link-underline" to="/#contact">Contact</router-link></li>
-      </ul>
-
-      <!-- Hamburger Button -->
-      <button
-        class="md:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10 cursor-pointer"
-        @click="toggleMenu"
-        aria-label="Toggle navigation menu"
+  <header class="sticky top-0 z-50 border-b border-line/80 bg-canvas/85 backdrop-blur-xl">
+    <div class="container-page flex h-[72px] items-center justify-between">
+      <router-link
+        to="/#profile"
+        class="group flex items-center gap-2.5 rounded-full"
+        aria-label="Johnlyn del Castillo — home"
+        @click="closeMenu"
       >
-        <span class="block w-6 h-0.5 bg-black transition-all duration-300"
-          :class="{ 'rotate-45 translate-y-2': isOpen }"></span>
-        <span class="block w-6 h-0.5 bg-black transition-all duration-300"
-          :class="{ 'opacity-0': isOpen }"></span>
-        <span class="block w-6 h-0.5 bg-black transition-all duration-300"
-          :class="{ '-rotate-45 -translate-y-2': isOpen }"></span>
-      </button>
-    </nav>
+        <span
+          class="flex h-9 w-9 items-center justify-center rounded-xl bg-ink text-white shadow-sm transition duration-300 ease-smooth group-hover:bg-accent-dark"
+        >
+          <Icon icon="mdi:check-bold" class="text-lg text-[#6EE7B7]" aria-hidden="true" />
+        </span>
+        <span class="font-display text-lg font-extrabold tracking-[-0.03em] text-ink">
+          jdc<span class="text-accent">.</span>
+        </span>
+      </router-link>
 
-    <!-- Mobile Menu -->
-    <div
-      class="md:hidden overflow-hidden transition-all duration-300"
-      :class="isOpen ? 'max-h-72 opacity-100' : 'max-h-0 opacity-0'"
-    >
-      <ul class="flex flex-col items-center gap-6 py-6 text-base font-bold text-black bg-main-background border-t border-black/10">
-        <li><router-link class="link-underline" to="/#profile" @click="closeMenu">Home</router-link></li>
-        <li><router-link class="link-underline" to="/#about" @click="closeMenu">About</router-link></li>
-        <li><router-link class="link-underline" to="/#timeline" @click="closeMenu">Timeline</router-link></li>
-        <li><router-link class="link-underline" to="/#project" @click="closeMenu">Project</router-link></li>
-        <li><router-link class="link-underline" to="/#skills" @click="closeMenu">Skills</router-link></li>
-        <li><router-link class="link-underline" to="/#contact" @click="closeMenu">Contact</router-link></li>
-      </ul>
+      <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <router-link
+          v-for="item in navItems"
+          :key="item.id"
+          :to="`/#${item.id}`"
+          class="relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-200"
+          :class="active === item.id ? 'text-ink' : 'text-ink-muted hover:text-ink'"
+          :aria-current="active === item.id ? 'true' : undefined"
+        >
+          {{ item.label }}
+          <span
+            v-if="active === item.id"
+            class="absolute inset-x-3.5 -bottom-0.5 h-px bg-accent"
+            aria-hidden="true"
+          ></span>
+        </router-link>
+      </nav>
+
+      <div class="hidden items-center gap-3 lg:flex">
+        <router-link to="/#contact" class="btn-primary !px-4 !py-2.5 text-[13px]">
+          Let's talk
+          <Icon icon="mdi:arrow-up-right" class="text-base" aria-hidden="true" />
+        </router-link>
+      </div>
+
+      <button
+        type="button"
+        class="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink transition hover:border-ink/20 lg:hidden"
+        :aria-expanded="isOpen"
+        aria-controls="mobile-navigation"
+        :aria-label="isOpen ? 'Close navigation menu' : 'Open navigation menu'"
+        @click="toggleMenu"
+      >
+        <Icon :icon="isOpen ? 'mdi:close' : 'mdi:menu'" class="text-xl" aria-hidden="true" />
+      </button>
     </div>
+
+    <Transition name="menu">
+      <div
+        v-if="isOpen"
+        id="mobile-navigation"
+        class="absolute inset-x-0 top-full max-h-[calc(100vh-72px)] overflow-y-auto border-t border-line bg-canvas shadow-lg lg:hidden"
+      >
+        <nav class="container-page flex flex-col py-4" aria-label="Mobile">
+          <router-link
+            v-for="item in navItems"
+            :key="item.id"
+            :to="`/#${item.id}`"
+            class="flex items-center justify-between border-b border-line/70 py-3.5 text-base font-medium text-ink"
+            @click="closeMenu"
+          >
+            {{ item.label }}
+            <Icon icon="mdi:arrow-up-right" class="text-ink-soft" aria-hidden="true" />
+          </router-link>
+          <router-link to="/#contact" class="btn-primary mt-4 w-full" @click="closeMenu">
+            Let's talk
+            <Icon icon="mdi:arrow-up-right" class="text-base" aria-hidden="true" />
+          </router-link>
+          <router-link
+            to="/resume"
+            class="mt-3 inline-flex items-center justify-center gap-2 py-2 text-sm font-medium text-ink-muted"
+            @click="closeMenu"
+          >
+            View resume
+            <Icon icon="mdi:arrow-right" class="text-base" aria-hidden="true" />
+          </router-link>
+        </nav>
+      </div>
+    </Transition>
   </header>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { Icon } from '@iconify/vue'
+import { navItems } from '@/data/siteData'
+import { useScrollSpy } from '@/composables/useScrollSpy'
 
+const route = useRoute()
 const isOpen = ref(false)
-function toggleMenu() { isOpen.value = !isOpen.value }
-function closeMenu() { isOpen.value = false }
+const { active } = useScrollSpy(navItems.map((item) => item.id))
+
+let previousOverflow = ''
+
+function toggleMenu() {
+  isOpen.value = !isOpen.value
+}
+
+function closeMenu() {
+  isOpen.value = false
+}
+
+function handleKeydown(event) {
+  if (event.key === 'Escape') closeMenu()
+}
+
+watch(isOpen, (open) => {
+  if (typeof document === 'undefined') return
+
+  if (open) {
+    previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = previousOverflow
+  }
+})
+
+watch(
+  () => route.fullPath,
+  () => closeMenu(),
+)
+
+onMounted(() => window.addEventListener('keydown', handleKeydown))
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeydown)
+  document.body.style.overflow = previousOverflow
+})
 </script>
+
+<style scoped>
+.menu-enter-active,
+.menu-leave-active {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.menu-enter-from,
+.menu-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+</style>

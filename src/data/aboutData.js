@@ -1,6 +1,6 @@
 export const briefIntro = [
-  `Hi, I'm Johnlyn del Castillo, a Junior Software QA Engineer at Sun Asterisk Philippines.
-   I hold a diploma in Computer Engineering Technology and transitioned into my current role
+  `I hold a diploma in Computer Engineering Technology.
+   I'm a Junior Software QA Engineer at Sun Asterisk Philippines, where I transitioned into my current role
    in January 2026 after 15 months as a QA intern.`,
 
   `I'm currently working on a structured SDLC project for a prominent Japanese tech client,

@@ -1,130 +1,258 @@
 <template>
-  <div class="font-Poppins bg-main-background">
-    <!-- Header -->
-    <header class="flex flex-row items-center bg-main-background px-6 py-6">
-      <nav class="flex flex-col items-start justify-start flex-1">
-        <h6 class="text-lg font-semibold">Get In Touch</h6>
-        <h1 class="text-4xl sm:text-5xl font-bold">Contact Me!</h1>
-      </nav>
-    </header>
+  <section id="contact" class="section-pad border-t border-line">
+    <div class="container-page">
+      <div
+        class="relative overflow-hidden rounded-3xl bg-ink px-5 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-14"
+      >
+        <div class="pointer-events-none absolute inset-0 grid-bg-dark" aria-hidden="true"></div>
 
-    <div class="flex flex-col lg:flex-row gap-4 px-6 pb-8 lg:px-8">
+        <div class="relative grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+          <div>
+            <p class="eyebrow text-white/50">
+              <span class="eyebrow-dot bg-emerald-400/80" aria-hidden="true"></span>
+              Contact
+            </p>
 
-      <!-- Left: contact info -->
-      <div class="flex flex-col gap-4 w-full lg:w-1/3">
-        <div class="bg-card-bg icons-shader border-black border-2 p-6 flex flex-col gap-4">
-          <label class="text-xl font-bold tracking-tight">Let's Connect</label>
-          <p class="text-black text-sm leading-relaxed">
-            Whether you have a project in mind, a question about QA, or just want to say hi — feel free to reach out. I'll get back to you as soon as I can!
-          </p>
-          <div class="flex flex-col gap-3 mt-2">
-            <a href="mailto:johnlyndel.castillo@gmail.com" class="flex items-center gap-3 text-sm font-medium text-black hover:underline">
-              <div class="w-9 h-9 flex items-center justify-center icons-shader bg-gmail shrink-0">
-                <Icon icon="mdi:email" class="text-lg" />
+            <h2
+              class="mt-5 max-w-lg font-display text-3xl font-extrabold leading-[1.08] tracking-[-0.03em] text-white text-balance sm:text-4xl lg:text-[42px]"
+            >
+              Let's make the next release a quiet one.
+              <PixelScene scene="contact" />
+            </h2>
+
+            <p class="mt-4 max-w-md text-[15px] leading-[1.7] text-white/60 sm:text-base">
+              Have a QA problem, a role, or a workflow idea? I'd be glad to talk. No spam, just a
+              conversation.
+            </p>
+
+            <div class="mt-8 space-y-2.5">
+              <a
+                v-for="link in contactLinks"
+                :key="link.label"
+                :href="link.href"
+                :target="link.external ? '_blank' : undefined"
+                :rel="link.external ? 'noopener noreferrer' : undefined"
+                class="group flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-3 transition duration-200 hover:border-white/20 hover:bg-white/[0.06]"
+              >
+                <span
+                  class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/5 text-white/60 transition group-hover:text-[#6EE7B7]"
+                >
+                  <Icon :icon="link.icon" class="text-lg" aria-hidden="true" />
+                </span>
+                <span class="min-w-0">
+                  <span class="block text-[11px] font-medium text-white/50">
+                    {{ link.label }}
+                  </span>
+                  <span class="block truncate text-sm text-white/75">{{ link.value }}</span>
+                </span>
+                <Icon
+                  icon="mdi:arrow-up-right"
+                  class="ml-auto shrink-0 text-white/40 transition group-hover:text-white/70"
+                  aria-hidden="true"
+                />
+              </a>
+            </div>
+
+            <div
+              class="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] text-white/60"
+            >
+              <span class="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-emerald-400"></span>
+              Usually replies within a day
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-white/10 bg-surface p-5 sm:p-7">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <h3 class="font-display text-xl font-bold tracking-tight text-ink">
+                  Send a message
+                </h3>
+                <p class="mt-1 text-xs text-ink-muted">Tell me what you're working on.</p>
               </div>
-              johnlyndel.castillo@gmail.com
-            </a>
-            <a href="https://github.com/JohnlyndelCastillo" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm font-medium text-black hover:underline">
-              <div class="w-9 h-9 flex items-center justify-center icons-shader bg-github shrink-0">
-                <Icon icon="mdi:github" class="text-lg" />
+              <span class="mt-1 hidden h-2.5 w-2.5 rounded-full bg-accent sm:block"></span>
+            </div>
+
+            <div
+              v-if="formState === 'success'"
+              class="mt-6 flex flex-col items-start gap-4 rounded-xl border border-accent/20 bg-accent-soft/60 p-5"
+              aria-live="polite"
+            >
+              <span
+                class="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-white"
+              >
+                <Icon icon="mdi:check" class="text-xl" aria-hidden="true" />
+              </span>
+              <div>
+                <p class="font-display text-lg font-bold text-ink">Message sent</p>
+                <p class="mt-1 text-sm leading-relaxed text-ink-muted">
+                  Thanks for reaching out. I'll get back to you soon.
+                </p>
               </div>
-              JohnlyndelCastillo
-            </a>
+              <button
+                type="button"
+                class="btn-secondary !px-4 !py-2 text-xs"
+                @click="resetForm"
+              >
+                Send another message
+              </button>
+            </div>
+
+            <div v-show="formState !== 'success'" class="mt-6">
+              <div
+                v-if="formState === 'error'"
+                class="mb-4 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4"
+                role="alert"
+              >
+                <Icon
+                  icon="mdi:alert-circle-outline"
+                  class="mt-0.5 shrink-0 text-xl text-red-600"
+                  aria-hidden="true"
+                />
+                <div>
+                  <p class="text-sm font-semibold text-ink">Something went wrong</p>
+                  <p class="mt-0.5 text-xs leading-relaxed text-ink-muted">
+                    Please try again or email me directly at
+                    <a :href="`mailto:${site.email}`" class="font-medium text-ink underline">
+                      {{ site.email }}
+                    </a>
+                    .
+                  </p>
+                </div>
+              </div>
+
+              <form class="flex flex-col gap-4" novalidate @submit.prevent="handleSubmit">
+                <div class="flex flex-col gap-1.5">
+                  <label for="contact-name" class="text-[12.5px] font-semibold text-ink">
+                    Name <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="contact-name"
+                    v-model="form.name"
+                    type="text"
+                    autocomplete="name"
+                    placeholder="Your name"
+                    class="input"
+                    :class="{
+                      'border-red-400 focus:border-red-400 focus:ring-red-100': errors.name,
+                    }"
+                    :aria-invalid="Boolean(errors.name)"
+                    :aria-describedby="errors.name ? 'contact-name-error' : undefined"
+                    @input="errors.name = ''"
+                  />
+                  <span v-if="errors.name" id="contact-name-error" class="field-error">
+                    {{ errors.name }}
+                  </span>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                  <label for="contact-email" class="text-[12.5px] font-semibold text-ink">
+                    Email <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="contact-email"
+                    v-model="form.email"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="you@company.com"
+                    class="input"
+                    :class="{
+                      'border-red-400 focus:border-red-400 focus:ring-red-100': errors.email,
+                    }"
+                    :aria-invalid="Boolean(errors.email)"
+                    :aria-describedby="errors.email ? 'contact-email-error' : undefined"
+                    @input="errors.email = ''"
+                  />
+                  <span v-if="errors.email" id="contact-email-error" class="field-error">
+                    {{ errors.email }}
+                  </span>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                  <label for="contact-message" class="text-[12.5px] font-semibold text-ink">
+                    Message <span class="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    v-model="form.message"
+                    rows="5"
+                    placeholder="What's on your mind?"
+                    class="input resize-none"
+                    :class="{
+                      'border-red-400 focus:border-red-400 focus:ring-red-100': errors.message,
+                    }"
+                    :aria-invalid="Boolean(errors.message)"
+                    :aria-describedby="errors.message ? 'contact-message-error' : undefined"
+                    @input="errors.message = ''"
+                  ></textarea>
+                  <span v-if="errors.message" id="contact-message-error" class="field-error">
+                    {{ errors.message }}
+                  </span>
+                </div>
+
+                <div ref="turnstileContainer"></div>
+                <span v-if="errors.turnstile" class="field-error">{{ errors.turnstile }}</span>
+
+                <button
+                  type="submit"
+                  :disabled="formState === 'sending'"
+                  class="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  <Icon
+                    v-if="formState === 'sending'"
+                    icon="mdi:loading"
+                    class="animate-spin text-lg"
+                    aria-hidden="true"
+                  />
+                  <Icon v-else icon="mdi:send-outline" class="text-lg" aria-hidden="true" />
+                  {{ formState === 'sending' ? 'Sending...' : 'Send message' }}
+                </button>
+
+                <p class="text-center text-[10px] text-ink-soft">
+                  Protected by Cloudflare Turnstile.
+                </p>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Right: contact form -->
-      <div class="w-full lg:w-2/3 bg-card-bg icons-shader border-black border-2 p-6 sm:p-8">
-        <label class="text-xl font-bold tracking-tight mb-6 block">Send a Message</label>
-
-        <!-- Success message -->
-        <div v-if="formState === 'success'" class="flex items-start gap-3 p-4 border-2 border-black bg-green-50 mb-6">
-          <Icon icon="mdi:check-circle" class="text-green-600 text-2xl shrink-0 mt-0.5" />
-          <div>
-            <p class="font-semibold text-black">Message sent!</p>
-            <p class="text-sm text-gray-600">Thanks for reaching out. I'll get back to you soon.</p>
-          </div>
-        </div>
-
-        <!-- Error message -->
-        <div v-if="formState === 'error'" class="flex items-start gap-3 p-4 border-2 border-black bg-red-50 mb-6">
-          <Icon icon="mdi:alert-circle" class="text-red-600 text-2xl shrink-0 mt-0.5" />
-          <div>
-            <p class="font-semibold text-black">Something went wrong.</p>
-            <p class="text-sm text-gray-600">Please try again or email me directly.</p>
-          </div>
-        </div>
-
-        <div v-if="formState !== 'success'" class="flex flex-col gap-4">
-          <!-- Name -->
-          <div class="flex flex-col gap-1">
-            <label class="text-sm font-semibold text-black">Name <span class="text-red-500">*</span></label>
-            <input
-              v-model="form.name"
-              type="text"
-              placeholder="Your name"
-              class="border-2 border-black p-3 text-sm bg-main-background focus:outline-none focus:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all"
-              :class="{ 'border-red-500': errors.name }"
-            />
-            <span v-if="errors.name" class="text-xs text-red-500">{{ errors.name }}</span>
-          </div>
-
-          <!-- Email -->
-          <div class="flex flex-col gap-1">
-            <label class="text-sm font-semibold text-black">Email <span class="text-red-500">*</span></label>
-            <input
-              v-model="form.email"
-              type="email"
-              placeholder="your@email.com"
-              class="border-2 border-black p-3 text-sm bg-main-background focus:outline-none focus:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all"
-              :class="{ 'border-red-500': errors.email }"
-            />
-            <span v-if="errors.email" class="text-xs text-red-500">{{ errors.email }}</span>
-          </div>
-
-          <!-- Message -->
-          <div class="flex flex-col gap-1">
-            <label class="text-sm font-semibold text-black">Message <span class="text-red-500">*</span></label>
-            <textarea
-              v-model="form.message"
-              rows="5"
-              placeholder="What's on your mind?"
-              class="border-2 border-black p-3 text-sm bg-main-background focus:outline-none focus:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-all resize-none"
-              :class="{ 'border-red-500': errors.message }"
-            ></textarea>
-            <span v-if="errors.message" class="text-xs text-red-500">{{ errors.message }}</span>
-          </div>
-
-          <!-- Cloudflare Turnstile -->
-          <div ref="turnstileContainer" class="cf-turnstile" :data-sitekey="turnstileSiteKey"></div>
-          <span v-if="errors.turnstile" class="text-xs text-red-500">{{ errors.turnstile }}</span>
-
-          <!-- Submit -->
-          <button
-            @click="handleSubmit"
-            :disabled="formState === 'sending'"
-            class="flex items-center justify-center gap-2 border-2 border-black p-3 font-semibold text-sm bg-cv-button shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-0.5 hover:translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
-          >
-            <Icon v-if="formState === 'sending'" icon="mdi:loading" class="text-lg animate-spin" />
-            <Icon v-else icon="mdi:send" class="text-lg" />
-            {{ formState === 'sending' ? 'Sending...' : 'Send Message' }}
-          </button>
-        </div>
-      </div>
-
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
 import { Icon } from '@iconify/vue'
+import PixelScene from '@/components/PixelScene.vue'
 import { useContactForm } from '@/composables/useContactForm'
+import { site } from '@/data/siteData'
 
-const { turnstileContainer, formState, form, errors, handleSubmit } = useContactForm({
-  serviceId:      import.meta.env.VITE_EMAILJS_SERVICE_ID,
-  templateId:     import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-  publicKey:      import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+const { turnstileContainer, formState, form, errors, handleSubmit, resetForm } = useContactForm({
+  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
   turnstileSiteKey: import.meta.env.VITE_TURNSTILE_SITE_KEY,
 })
+
+const contactLinks = [
+  {
+    label: 'Email',
+    value: site.email,
+    href: `mailto:${site.email}`,
+    icon: 'mdi:email-outline',
+    external: false,
+  },
+  {
+    label: 'LinkedIn',
+    value: 'johnlyn-del-castillo',
+    href: site.linkedin,
+    icon: 'mdi:linkedin',
+    external: true,
+  },
+  {
+    label: 'GitHub',
+    value: 'JohnlyndelCastillo',
+    href: site.github,
+    icon: 'mdi:github',
+    external: true,
+  },
+]
 </script>
