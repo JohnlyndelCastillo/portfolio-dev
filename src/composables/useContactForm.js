@@ -1,4 +1,4 @@
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
 import emailjs from '@emailjs/browser'
 
 export function useContactForm({ serviceId, templateId, publicKey, turnstileSiteKey }) {
@@ -9,6 +9,8 @@ export function useContactForm({ serviceId, templateId, publicKey, turnstileSite
   const form = reactive({ name: '', email: '', message: '' })
   const errors = reactive({ name: '', email: '', message: '', turnstile: '' })
 
+  let turnstileInterval
+
   onMounted(() => {
     if (!document.querySelector('script[src*="turnstile"]')) {
       const script = document.createElement('script')
@@ -18,17 +20,29 @@ export function useContactForm({ serviceId, templateId, publicKey, turnstileSite
       document.head.appendChild(script)
     }
 
-    const interval = setInterval(() => {
+    let attempts = 0
+
+    turnstileInterval = setInterval(() => {
+      attempts += 1
+
       if (window.turnstile && turnstileContainer.value) {
         window.turnstile.render(turnstileContainer.value, {
           sitekey: turnstileSiteKey,
           callback: (token) => { turnstileToken.value = token },
           'expired-callback': () => { turnstileToken.value = '' },
         })
-        clearInterval(interval)
+        clearInterval(turnstileInterval)
+        return
+      }
+
+      if (attempts >= 40) {
+        clearInterval(turnstileInterval)
+        errors.turnstile = 'The security check could not load. Please refresh and try again.'
       }
     }, 300)
   })
+
+  onBeforeUnmount(() => clearInterval(turnstileInterval))
 
   function validate() {
     errors.name = ''
@@ -57,6 +71,19 @@ export function useContactForm({ serviceId, templateId, publicKey, turnstileSite
       valid = false
     }
     return valid
+  }
+
+  function resetForm() {
+    form.name = ''
+    form.email = ''
+    form.message = ''
+    errors.name = ''
+    errors.email = ''
+    errors.message = ''
+    errors.turnstile = ''
+    formState.value = 'idle'
+    turnstileToken.value = ''
+    if (window.turnstile) window.turnstile.reset()
   }
 
   async function handleSubmit() {
@@ -93,5 +120,13 @@ export function useContactForm({ serviceId, templateId, publicKey, turnstileSite
     }
   }
 
-  return { turnstileContainer, turnstileToken, formState, form, errors, handleSubmit }
+  return {
+    turnstileContainer,
+    turnstileToken,
+    formState,
+    form,
+    errors,
+    handleSubmit,
+    resetForm,
+  }
 }

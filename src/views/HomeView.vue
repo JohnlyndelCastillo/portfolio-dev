@@ -1,38 +1,34 @@
 <template>
-  <section id="profile">
-    <div class="flex flex-col">
-      <Navbar />
-      <Profile />
-    </div>
-  </section>
+  <div class="min-h-screen bg-canvas">
+    <a href="#main-content" class="skip-link">Skip to content</a>
 
-  <section id="about" class="w-full">
-    <About />
-  </section>
+    <NavBar />
 
-  <section id="timeline" class="w-full">
-    <Timeline />
-  </section>
+    <main id="main-content">
+      <section id="profile">
+        <Profile />
+      </section>
 
-  <section id="project" class="w-full">
-    <Project />
-  </section>
+      <About />
+      <QaCraft />
+      <Timeline />
+      <Project />
+      <Skills />
+      <Contact />
+    </main>
 
-  <section id="skills" class="w-full">
-    <Skills />
-  </section>
-
-  <section id="contact" class="w-full">
-    <Contact />
-  </section>
+    <SiteFooter />
+  </div>
 </template>
 
 <script setup>
-import Navbar  from '@/components/NavBar.vue'
+import NavBar from '@/components/NavBar.vue'
 import Profile from '@/components/Profile.vue'
-import About   from '@/views/About.vue'
+import SiteFooter from '@/components/SiteFooter.vue'
+import About from '@/views/About.vue'
+import QaCraft from '@/views/QaCraft.vue'
 import Timeline from '@/views/Timeline.vue'
-import Contact from '@/views/Contact.vue'
 import Project from '@/views/Project.vue'
-import Skills  from '@/views/Skills.vue'
+import Skills from '@/views/Skills.vue'
+import Contact from '@/views/Contact.vue'
 </script>

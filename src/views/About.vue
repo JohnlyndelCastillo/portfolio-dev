@@ -1,92 +1,87 @@
 <template>
-  <div class="font-Poppins bg-main-background">
-    <!-- Header -->
-    <header class="flex flex-row items-center bg-main-background px-6 py-6">
-      <nav class="flex flex-col items-start justify-start flex-1">
-        <h6 class="text-lg font-semibold">Get To Know More</h6>
-        <h1 class="text-4xl sm:text-5xl font-bold">About Me!</h1>
-      </nav>
-    </header>
-
-    <div class="flex flex-col gap-4 px-6 pb-8 lg:px-8">
-
-      <!-- Brief Introduction: full width, always open -->
-      <div class="w-full bg-card-bg icons-shader border-black border-2 p-6 sm:p-8">
-        <label class="p-3 mb-4 inline-block border-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] text-xl sm:text-2xl font-bold tracking-tight text-black bg-cv-button border-black">
-          Brief Introduction
-          <Icon icon="mdi:information" class="inline ml-2" />
-        </label>
-        <div class="text-black space-y-4 font-normal text-sm sm:text-base leading-relaxed mt-2">
-          <p v-for="(para, i) in briefIntro" :key="i" class="text-black text-sm sm:text-base">
-                {{ para }}
-              </p>
-        </div>
-      </div>
-
-      <!-- Why QA and Growth Goals -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-
-        <!-- Why Software QA -->
-        <div class="w-full bg-card-bg icons-shader border-black border-2">
-          <button
-            class="w-full flex items-center justify-between p-6 sm:p-8 lg:cursor-default"
-            @click="toggleMobile('whyqa')"
-          >
-            <label class="label-card-about cursor-pointer lg:cursor-default">Why Software QA?</label>
-            <Icon
-              icon="mdi:chevron-down"
-              class="text-xl transition-transform duration-300 lg:hidden"
-              :class="{ 'rotate-180': open.whyqa }"
+  <section id="about" class="section-pad">
+    <div class="container-page">
+      <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div class="lg:col-span-4">
+          <div class="lg:sticky lg:top-28">
+            <SectionHeader
+              eyebrow="About"
+              title="Quality is a habit, not a final step."
+              description="I'm a QA engineer who cares about how software behaves in the real world, not just whether it matches the happy path."
+              scene="about"
             />
-          </button>
-          <div
-            class="overflow-hidden transition-all duration-300 lg:!max-h-none lg:!opacity-100"
-            :class="open.whyqa ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 lg:max-h-none lg:opacity-100'"
-          >
-            <div class="space-y-4 px-6 pb-6 sm:px-8 sm:pb-8">
-              <p v-for="(para, i) in whyQA" :key="i" class="text-black text-sm sm:text-base">
-                {{ para }}
-              </p>
-            </div>
+
+            <router-link
+              to="/#experience"
+              class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition hover:text-accent"
+            >
+              See my experience
+              <Icon icon="mdi:arrow-right" class="text-base" aria-hidden="true" />
+            </router-link>
           </div>
         </div>
 
-        <!-- Growth Goals -->
-        <div class="w-full bg-card-bg icons-shader border-black border-2">
-          <button
-            class="w-full flex items-center justify-between p-6 sm:p-8 lg:cursor-default"
-            @click="toggleMobile('growth')"
+        <div class="lg:col-span-8">
+          <div v-reveal class="space-y-5 text-[17px] leading-[1.75] text-ink-muted sm:text-[19px]">
+            <p v-for="(para, index) in briefIntro" :key="index">
+              {{ para }}
+            </p>
+          </div>
+
+          <dl
+            v-reveal="80"
+            class="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4"
           >
-            <label class="label-card-about cursor-pointer lg:cursor-default">
-              Growth Goals
-              <Icon icon="mdi:chart-bar" class="inline ml-2" />
-            </label>
-            <Icon
-              icon="mdi:chevron-down"
-              class="text-xl transition-transform duration-300 lg:hidden"
-              :class="{ 'rotate-180': open.growth }"
-            />
-          </button>
-          <div
-            class="overflow-hidden transition-all duration-300 lg:!max-h-none lg:!opacity-100"
-            :class="open.growth ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0 lg:max-h-none lg:opacity-100'"
-          >
-            <div class="space-y-4 px-6 pb-6 sm:px-8 sm:pb-8">
-              <p v-for="(para, i) in growthGoals" :key="i" class="text-black text-sm sm:text-base">
-                {{ para }}
-              </p>
+            <div v-for="fact in quickFacts" :key="fact.label" class="bg-surface p-4 sm:p-5">
+              <dt class="text-[11px] font-medium text-ink-soft">
+                {{ fact.label }}
+              </dt>
+              <dd class="mt-2 text-sm font-semibold leading-snug text-ink">{{ fact.value }}</dd>
             </div>
+          </dl>
+
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            <article
+              v-for="(card, index) in cards"
+              :key="card.title"
+              v-reveal="index * 90"
+              class="card p-6"
+            >
+              <span
+                class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-accent"
+              >
+                <Icon :icon="card.icon" class="text-xl" aria-hidden="true" />
+              </span>
+              <h3 class="mt-5 font-display text-lg font-bold tracking-tight text-ink">
+                {{ card.title }}
+              </h3>
+              <div class="mt-2 space-y-2 text-[14.5px] leading-[1.7] text-ink-muted">
+                <p v-for="(para, paraIndex) in card.paragraphs" :key="paraIndex">{{ para }}</p>
+              </div>
+            </article>
           </div>
         </div>
-
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
 import { Icon } from '@iconify/vue'
-import { useMobileToggle } from '@/composables/useMobileToggle'
-const { open, toggleMobile } = useMobileToggle(['whyqa', 'growth'])
-import { briefIntro, whyQA, growthGoals } from '@/data/aboutData'
+import SectionHeader from '@/components/SectionHeader.vue'
+import { briefIntro, growthGoals, whyQA } from '@/data/aboutData'
+import { quickFacts } from '@/data/siteData'
+
+const cards = [
+  {
+    title: 'Why software QA?',
+    icon: 'mdi:compass-outline',
+    paragraphs: whyQA,
+  },
+  {
+    title: "Where I'm headed",
+    icon: 'mdi:trending-up',
+    paragraphs: growthGoals,
+  },
+]
 </script>
