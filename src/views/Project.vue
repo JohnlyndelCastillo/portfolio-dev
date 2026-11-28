@@ -1,12 +1,12 @@
 <template>
-  <section id="work" class="section-pad border-t border-line bg-surface">
-    <div class="container-page">
+  <section id="work" class="section-pad relative overflow-hidden border-t border-line bg-surface">
+    <PixelBackdrop variant="work" />
+    <div class="container-page relative z-10">
       <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <SectionHeader
           eyebrow="Selected work"
           title="Built to solve a real problem."
           description="Five builds that show how I think about data, workflows, and the people using them."
-          scene="work"
         />
 
         <a
@@ -62,7 +62,7 @@
         <div
           id="project-track"
           ref="track"
-          class="scrollbar-hide -mx-5 mt-4 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto overscroll-x-contain scroll-smooth scroll-pl-5 px-5 pb-2 sm:mx-0 sm:mt-0 sm:grid sm:auto-rows-fr sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3"
+          class="scrollbar-hide -mx-5 mt-4 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto overscroll-x-contain scroll-smooth scroll-pl-5 px-5 pb-2 sm:mx-0 sm:mt-0 sm:grid sm:auto-rows-fr sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-6"
           @scroll.passive="handleScroll"
         >
           <article
@@ -73,6 +73,10 @@
             aria-roledescription="slide"
             :aria-label="`${index + 1} of ${projects.length}: ${project.title}`"
             class="card card-hover group flex w-[85%] shrink-0 snap-start flex-col p-5 sm:w-auto sm:p-6"
+            :class="[
+              index >= 3 ? 'lg:col-span-3' : 'lg:col-span-2',
+              index === projects.length - 1 ? 'sm:col-span-2 lg:col-span-3' : '',
+            ]"
           >
             <div class="flex items-center justify-between gap-3">
               <span class="text-[12px] font-semibold text-ink-soft">
@@ -156,6 +160,7 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { Icon } from '@iconify/vue'
+import PixelBackdrop from '@/components/PixelBackdrop.vue'
 import SectionHeader from '@/components/SectionHeader.vue'
 import { projects } from '@/data/projectsData'
 import { site } from '@/data/siteData'

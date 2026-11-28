@@ -9,7 +9,6 @@
       class="mt-5 font-display text-3xl font-extrabold leading-[1.08] tracking-[-0.03em] text-ink text-balance sm:text-4xl lg:text-[42px]"
     >
       <slot name="title">{{ title }}</slot>
-      <PixelScene v-if="scene" :scene="scene" />
     </h2>
 
     <p
@@ -23,8 +22,6 @@
 </template>
 
 <script setup>
-import PixelScene from '@/components/PixelScene.vue'
-
 defineProps({
   eyebrow: {
     type: String,
@@ -41,10 +38,6 @@ defineProps({
   center: {
     type: Boolean,
     default: false,
-  },
-  scene: {
-    type: String,
-    default: '',
   },
 })
 </script>

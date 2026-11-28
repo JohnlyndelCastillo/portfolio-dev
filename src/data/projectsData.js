@@ -106,6 +106,7 @@ export const projects = [
       'Inventory with low-stock alerts, stock history, and CSV export',
       'Cash and utang sales with change, voids, and customer ledgers',
       'Daily sales, cash, utang, and estimated profit summary',
+      'Automated Vitest, React Testing Library, and Playwright coverage',
     ],
     tech: [
       { name: 'TypeScript', color: '#3178C6' },

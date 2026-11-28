@@ -19,19 +19,20 @@
       <article
         class="resume-page rounded-2xl border border-line bg-surface p-6 shadow-card sm:p-10 lg:p-12"
       >
-        <header class="resume-header border-b border-line pb-6">
+        <header class="resume-header border-b border-line pb-5">
           <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <h1
                 class="font-display text-3xl font-extrabold tracking-[-0.03em] text-ink sm:text-4xl"
               >
                 {{ site.name }}
-                <PixelScene scene="resume" />
               </h1>
-              <p class="mt-1 text-sm font-semibold text-accent sm:text-base">{{ site.role }}</p>
+              <p class="mt-1 text-sm font-semibold text-accent sm:text-[15px]">
+                {{ resumeProfile.headline }}
+              </p>
             </div>
 
-            <div class="text-left text-xs leading-relaxed text-ink-muted sm:text-right">
+            <div class="resume-contact text-left text-xs leading-relaxed text-ink-muted sm:text-right">
               <p>{{ site.location }}</p>
               <a :href="`mailto:${site.email}`" class="block transition hover:text-ink">
                 {{ site.email }}
@@ -63,111 +64,132 @@
             </div>
           </div>
 
-          <p class="resume-summary mt-5 max-w-3xl text-sm leading-relaxed text-ink-muted">
-            {{ summary }}
+          <p class="resume-summary mt-4 max-w-3xl text-[13.5px] leading-relaxed text-ink-muted">
+            {{ resumeProfile.summary }}
           </p>
         </header>
 
-        <div class="resume-grid mt-7 grid gap-8 lg:grid-cols-[1.55fr_1fr]">
-          <div class="resume-main space-y-7">
-            <section class="avoid-break">
+        <div class="resume-grid mt-6 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
+          <div class="resume-main space-y-6">
+            <section>
               <h2 class="resume-heading">Experience</h2>
-              <div class="resume-stack mt-4 space-y-5">
-                <article v-for="item in experience" :key="item.title" class="avoid-break">
+              <div class="resume-stack mt-3.5 space-y-4">
+                <article
+                  v-for="item in resumeExperience"
+                  :key="`${item.title}-${item.period}`"
+                  class="avoid-break"
+                >
                   <div
                     class="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between"
                   >
                     <h3 class="font-display text-sm font-bold text-ink">{{ item.title }}</h3>
                     <p class="text-[11px] font-medium text-ink-soft">
-                      {{ item.year }}
+                      {{ item.period }}
                     </p>
                   </div>
-                  <p class="text-xs font-medium text-accent">{{ item.org }}</p>
-                  <p class="mt-1.5 text-[13px] leading-relaxed text-ink-muted">
-                    {{ item.resumeDescription }}
+                  <p class="text-xs font-medium text-accent">
+                    {{ item.org }}
+                    <span v-if="item.project" class="text-ink-soft"> · {{ item.project }}</span>
                   </p>
+                  <ul class="resume-bullets mt-2 space-y-1">
+                    <li
+                      v-for="bullet in item.bullets"
+                      :key="bullet"
+                      class="relative pl-3.5 text-[12.5px] leading-relaxed text-ink-muted"
+                    >
+                      <span
+                        class="absolute left-0 top-[0.55em] h-1 w-1 rounded-full bg-accent/70"
+                        aria-hidden="true"
+                      ></span>
+                      {{ bullet }}
+                    </li>
+                  </ul>
                 </article>
               </div>
             </section>
 
-            <section class="avoid-break">
-              <h2 class="resume-heading">Selected projects</h2>
-              <div class="resume-stack resume-stack-tight mt-4 space-y-4">
-                <article v-for="project in projects" :key="project.id" class="avoid-break">
-                  <div class="flex items-baseline justify-between gap-3">
+            <section>
+              <h2 class="resume-heading">Selected Projects</h2>
+              <div class="resume-stack mt-3.5 space-y-3.5">
+                <article v-for="project in resumeProjects" :key="project.title" class="avoid-break">
+                  <div class="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between">
                     <h3 class="font-display text-sm font-bold text-ink">{{ project.title }}</h3>
-                    <span class="text-[11px] font-medium text-ink-soft">
-                      {{ project.type }}
-                    </span>
+                    <a
+                      v-if="project.link"
+                      :href="project.link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-[11px] font-medium text-accent transition hover:underline"
+                    >
+                      <span class="print:hidden">GitHub ↗</span>
+                      <span class="hidden print:inline">{{ project.linkLabel }}</span>
+                    </a>
                   </div>
-                  <p class="mt-1 text-[13px] leading-relaxed text-ink-muted">
-                    {{ project.resumeDescription }}
+                  <p class="text-[11px] font-medium text-ink-soft">
+                    {{ project.meta }}
                   </p>
-                  <p class="mt-1 text-[11px] text-ink-soft">
-                    {{ project.tech.map((tech) => tech.name).join(' · ') }}
-                  </p>
+                  <ul class="resume-bullets mt-1.5 space-y-1">
+                    <li
+                      v-for="bullet in project.bullets"
+                      :key="bullet"
+                      class="relative pl-3.5 text-[12.5px] leading-relaxed text-ink-muted"
+                    >
+                      <span
+                        class="absolute left-0 top-[0.55em] h-1 w-1 rounded-full bg-accent/70"
+                        aria-hidden="true"
+                      ></span>
+                      {{ bullet }}
+                    </li>
+                  </ul>
                 </article>
               </div>
             </section>
-
           </div>
 
-          <aside class="resume-aside space-y-7">
+          <aside class="resume-aside space-y-6">
             <section class="avoid-break">
-              <h2 class="resume-heading">Skills</h2>
-              <div class="mt-4 space-y-3">
-                <div v-for="category in categories" :key="category.label">
-                  <h3 class="text-xs font-semibold text-ink">{{ category.label }}</h3>
+              <h2 class="resume-heading">Technical Skills</h2>
+              <div class="mt-3.5 space-y-3">
+                <div v-for="group in resumeSkillGroups" :key="group.label">
+                  <h3 class="text-xs font-semibold text-ink">{{ group.label }}</h3>
                   <p class="mt-0.5 text-[12px] leading-relaxed text-ink-muted">
-                    {{ category.skills.map((skill) => skill.label).join(' · ') }}
+                    {{ group.items.join(' · ') }}
                   </p>
                 </div>
               </div>
             </section>
 
-            <section v-if="education" class="avoid-break">
+            <section class="avoid-break">
               <h2 class="resume-heading">Education</h2>
-              <div class="mt-4">
+              <div class="mt-3.5">
                 <h3 class="font-display text-sm font-bold leading-snug text-ink">
-                  {{ education.title }}
+                  {{ resumeEducation.degree }}
                 </h3>
-                <p class="mt-0.5 text-xs font-medium text-accent">{{ education.org }}</p>
+                <p class="mt-0.5 text-xs font-medium text-accent">{{ resumeEducation.school }}</p>
                 <p class="text-[11px] font-medium text-ink-soft">
-                  {{ education.year }}
+                  {{ resumeEducation.period }}
                 </p>
-                <p class="mt-1 text-[13px] leading-relaxed text-ink-muted">
-                  {{ education.resumeDescription }}
+                <p class="mt-1.5 text-[12px] leading-relaxed text-ink-muted">
+                  {{ resumeEducation.details }}
                 </p>
               </div>
             </section>
 
             <section class="avoid-break">
-              <h2 class="resume-heading">QA practice</h2>
-              <p class="mt-4 text-[12px] leading-relaxed text-ink-muted">
-                {{ additionalSkills.join(' · ') }}
-              </p>
-            </section>
-
-            <section class="avoid-break">
               <h2 class="resume-heading">Recognition</h2>
-              <p class="mt-4 text-xs font-medium text-accent">Sun Asterisk Philippines</p>
-              <ul class="resume-awards mt-1.5 space-y-1">
-                <li v-for="award in awards" :key="award.title" class="text-[11px] leading-relaxed">
-                  <span class="font-semibold text-ink">{{ award.title }}</span>
+              <ul class="resume-awards mt-3.5 space-y-1.5">
+                <li v-for="award in resumeAwards" :key="award.title" class="text-[12px] leading-snug">
+                  <span class="block font-semibold text-ink">{{ award.title }}</span>
+                  <span class="text-[11px] text-ink-muted">{{ award.org }}</span>
                 </li>
               </ul>
             </section>
-
           </aside>
         </div>
-
-        <footer class="resume-footer mt-8 border-t border-line pt-4 text-[10px] text-ink-soft">
-          <p>References available on request.</p>
-        </footer>
       </article>
 
       <p class="print-hidden mt-4 text-center text-[11px] text-ink-soft">
-        Use your browser's print dialog to save this page as a PDF.
+        Use your browser's print dialog to save this page as a one-page PDF.
       </p>
     </div>
   </div>
@@ -175,24 +197,15 @@
 
 <script setup>
 import { Icon } from '@iconify/vue'
-import PixelScene from '@/components/PixelScene.vue'
-import { additionalSkills, categories } from '@/data/skillsData'
-import { awards, timeline } from '@/data/timelineData'
-import { projects } from '@/data/projectsData'
+import {
+  resumeAwards,
+  resumeEducation,
+  resumeExperience,
+  resumeProfile,
+  resumeProjects,
+  resumeSkillGroups,
+} from '@/data/resumeData'
 import { site } from '@/data/siteData'
-
-const summary =
-  'Junior Software QA Engineer with 2+ years across SDLC and Agile projects. Designs traceable test coverage, audits regression suites, and builds AI-assisted QA workflows.'
-
-const experience = [...timeline]
-  .reverse()
-  .filter((item) => !item.title.startsWith('Diploma'))
-  .map((item) => ({
-    ...item,
-    year: item.current ? `${item.year} – Present` : item.year,
-  }))
-
-const education = timeline.find((item) => item.title.startsWith('Diploma'))
 
 function printResume() {
   window.print()
@@ -201,7 +214,7 @@ function printResume() {
 
 <style scoped>
 .resume-heading {
-  @apply text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-soft;
+  @apply border-b border-line pb-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-soft;
 }
 
 .avoid-break {
@@ -209,6 +222,20 @@ function printResume() {
 }
 
 @media print {
+  .resume-shell,
+  .resume-page {
+    --color-canvas: 255 255 255;
+    --color-surface: 255 255 255;
+    --color-ink: 17 22 20;
+    --color-ink-muted: 92 99 95;
+    --color-ink-soft: 107 114 110;
+    --color-line: 228 225 216;
+    --color-accent: 15 118 110;
+    --color-accent-dark: 11 92 85;
+    --color-accent-soft: 231 241 237;
+    color: #111614 !important;
+  }
+
   .resume-shell {
     background: #ffffff !important;
     padding: 0 !important;
@@ -224,30 +251,35 @@ function printResume() {
   }
 
   .resume-header {
-    padding-bottom: 0.65rem !important;
+    padding-bottom: 0.55rem !important;
   }
 
   .resume-header h1 {
-    font-size: 26px !important;
+    font-size: 24px !important;
     line-height: 1.1;
   }
 
   .resume-header h1 + p {
     margin-top: 2px;
-    font-size: 13px !important;
+    font-size: 12px !important;
+  }
+
+  .resume-contact {
+    font-size: 10.5px !important;
+    line-height: 1.4 !important;
   }
 
   .resume-summary {
-    margin-top: 0.55rem !important;
-    font-size: 13px !important;
-    line-height: 1.55 !important;
+    margin-top: 0.45rem !important;
+    font-size: 11.5px !important;
+    line-height: 1.45 !important;
   }
 
   .resume-grid {
     display: grid !important;
-    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
-    gap: 1.5rem !important;
-    margin-top: 1rem !important;
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+    gap: 1.35rem !important;
+    margin-top: 0.75rem !important;
   }
 
   .resume-main,
@@ -257,43 +289,47 @@ function printResume() {
 
   .resume-main > section + section,
   .resume-aside > section + section {
-    margin-top: 1.2rem !important;
+    margin-top: 0.9rem !important;
   }
 
   .resume-main section > div,
   .resume-aside section > div,
-  .resume-aside section > p,
   .resume-aside section > ul {
-    margin-top: 0.4rem !important;
+    margin-top: 0.35rem !important;
   }
 
   .resume-stack > * + * {
-    margin-top: 0.85rem !important;
+    margin-top: 0.65rem !important;
   }
 
-  .resume-awards > * + * {
-    margin-top: 2px !important;
+  .resume-bullets > * + * {
+    margin-top: 0.2rem !important;
   }
 
-  .resume-main section p,
-  .resume-aside section p,
-  .resume-aside section li {
-    font-size: 13px !important;
-    line-height: 1.55 !important;
+  .resume-bullets li {
+    font-size: 11px !important;
+    line-height: 1.42 !important;
   }
 
-  .resume-aside section ul.resume-awards li {
+  .resume-main h3,
+  .resume-aside h3 {
     font-size: 12px !important;
   }
 
-  .resume-heading {
-    font-size: 8.5px !important;
-    letter-spacing: 0.16em !important;
+  .resume-aside section p,
+  .resume-aside section li {
+    font-size: 11px !important;
+    line-height: 1.42 !important;
   }
 
-  .resume-footer {
-    margin-top: 1.3rem !important;
-    padding-top: 0.55rem !important;
+  .resume-awards > * + * {
+    margin-top: 4px !important;
+  }
+
+  .resume-heading {
+    padding-bottom: 3px !important;
+    font-size: 8.5px !important;
+    letter-spacing: 0.14em !important;
   }
 
   a {
@@ -302,7 +338,8 @@ function printResume() {
   }
 
   @page {
-    margin: 11mm 12mm;
+    size: letter;
+    margin: 10mm 12mm;
   }
 }
 </style>

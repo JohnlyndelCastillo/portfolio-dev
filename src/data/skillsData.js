@@ -1,12 +1,15 @@
 export const categories = [
   {
-    label: 'Testing Tools',
-    description: 'Automation, API validation, and smoke coverage.',
+    label: 'Testing & AI QA',
+    description: 'Automation, API validation, and AI-assisted workflows.',
     icon: 'fluent-mdl2:test-auto-solid',
     skills: [
       { icon: 'simple-icons:playwright', label: 'Playwright' },
       { icon: 'simple-icons:cypress', label: 'Cypress' },
       { icon: 'simple-icons:postman', label: 'Postman' },
+      { icon: 'simple-icons:vitest', label: 'Vitest' },
+      { icon: 'mdi:robot-outline', label: 'Claude Code' },
+      { icon: 'mdi:connection', label: 'MCPs' },
     ],
   },
   {
@@ -30,15 +33,18 @@ export const categories = [
   },
   {
     label: 'Development',
-    description: 'Enough context to test the implementation properly.',
+    description: 'Enough full-stack context to test systems properly.',
     icon: 'material-symbols:terminal',
     skills: [
-      { icon: 'mdi:language-php', label: 'PHP' },
       { icon: 'mdi:language-javascript', label: 'JavaScript' },
+      { icon: 'mdi:language-typescript', label: 'TypeScript' },
       { icon: 'mdi:vuejs', label: 'Vue.js' },
-      { icon: 'simple-icons:mysql', label: 'MySQL' },
-      { icon: 'simple-icons:tailwindcss', label: 'Tailwind' },
+      { icon: 'mdi:react', label: 'React' },
       { icon: 'mdi:nodejs', label: 'Node.js' },
+      { icon: 'mdi:language-php', label: 'PHP' },
+      { icon: 'simple-icons:tailwindcss', label: 'Tailwind' },
+      { icon: 'simple-icons:mysql', label: 'MySQL' },
+      { icon: 'simple-icons:sqlite', label: 'SQLite' },
     ],
   },
 ]

@@ -1,11 +1,11 @@
 <template>
-  <section id="craft" class="section-pad border-y border-line bg-surface">
-    <div class="container-page">
+  <section id="craft" class="section-pad relative overflow-hidden border-y border-line bg-surface">
+    <PixelBackdrop variant="craft" />
+    <div class="container-page relative z-10">
       <SectionHeader
         eyebrow="QA craft"
         title="Testing is a system, not a checklist."
         description="I combine structured test design with automation and AI-assisted workflows, so coverage stays intentional as the product grows."
-        scene="craft"
       />
 
       <div
@@ -35,7 +35,7 @@
               {{ step.number }}
             </span>
             <span
-              class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-accent transition duration-300 group-hover:bg-accent group-hover:text-white"
+              class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-soft text-accent transition duration-300 group-hover:bg-accent group-hover:text-white dark:group-hover:text-[#0B110F]"
             >
               <Icon :icon="step.icon" class="text-xl" aria-hidden="true" />
             </span>
@@ -62,7 +62,7 @@
         class="mt-6 flex flex-col gap-4 rounded-2xl border border-line bg-canvas p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6"
       >
         <div class="flex items-start gap-3">
-          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-ink text-[#6EE7B7]">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#111614] text-[#6EE7B7] dark:bg-[#0C1311] dark:ring-1 dark:ring-white/10">
             <Icon icon="mdi:robot-outline" class="text-xl" aria-hidden="true" />
           </span>
           <div>
@@ -97,6 +97,7 @@
 
 <script setup>
 import { Icon } from '@iconify/vue'
+import PixelBackdrop from '@/components/PixelBackdrop.vue'
 import SectionHeader from '@/components/SectionHeader.vue'
 import { craftSteps, dailyPractices } from '@/data/qaCraft'
 </script>

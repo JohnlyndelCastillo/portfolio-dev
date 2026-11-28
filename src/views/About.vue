@@ -1,6 +1,7 @@
 <template>
-  <section id="about" class="section-pad">
-    <div class="container-page">
+  <section id="about" class="section-pad relative">
+    <PixelBackdrop variant="about" />
+    <div class="container-page relative z-10">
       <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div class="lg:col-span-4">
           <div class="lg:sticky lg:top-28">
@@ -8,7 +9,6 @@
               eyebrow="About"
               title="Quality is a habit, not a final step."
               description="I'm a QA engineer who cares about how software behaves in the real world, not just whether it matches the happy path."
-              scene="about"
             />
 
             <router-link
@@ -68,6 +68,7 @@
 
 <script setup>
 import { Icon } from '@iconify/vue'
+import PixelBackdrop from '@/components/PixelBackdrop.vue'
 import SectionHeader from '@/components/SectionHeader.vue'
 import { briefIntro, growthGoals, whyQA } from '@/data/aboutData'
 import { quickFacts } from '@/data/siteData'

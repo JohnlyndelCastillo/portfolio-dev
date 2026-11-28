@@ -8,7 +8,7 @@
             class="inline-flex items-center gap-2.5"
             aria-label="Johnlyn del Castillo — home"
           >
-            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-ink text-white">
+            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#111614] text-white dark:bg-[#16211D] dark:ring-1 dark:ring-white/10">
               <Icon icon="mdi:check-bold" class="text-lg text-[#6EE7B7]" aria-hidden="true" />
             </span>
             <span class="font-display text-lg font-extrabold tracking-[-0.03em] text-ink">
@@ -99,7 +99,7 @@
       >
         <p>© {{ year }} Johnlyn del Castillo. All rights reserved.</p>
         <div class="flex flex-wrap items-center gap-4">
-          <span>Built with Vue 3 &amp; Tailwind CSS</span>
+          <span>{{ site.location }} · Quality Engineering</span>
           <a href="#profile" class="inline-flex items-center gap-1 transition hover:text-ink">
             Back to top
             <Icon icon="mdi:arrow-up" class="text-xs" aria-hidden="true" />

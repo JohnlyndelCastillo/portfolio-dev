@@ -1,11 +1,11 @@
 <template>
-  <section id="skills" class="section-pad border-t border-line">
-    <div class="container-page">
+  <section id="skills" class="section-pad relative overflow-hidden border-t border-line">
+    <PixelBackdrop variant="skills" />
+    <div class="container-page relative z-10">
       <SectionHeader
         eyebrow="Toolkit"
         title="A toolkit built around quality."
         description="The tools I use day to day, plus the QA practices that sit underneath them."
-        scene="skills"
       />
 
       <div class="mt-12 grid gap-4 sm:grid-cols-2">
@@ -64,6 +64,7 @@
 
 <script setup>
 import { Icon } from '@iconify/vue'
+import PixelBackdrop from '@/components/PixelBackdrop.vue'
 import SectionHeader from '@/components/SectionHeader.vue'
 import { additionalSkills, categories } from '@/data/skillsData'
 </script>

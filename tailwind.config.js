@@ -1,23 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        canvas: '#F7F6F1',
-        surface: '#FFFFFF',
+        canvas: 'rgb(var(--color-canvas) / <alpha-value>)',
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
         ink: {
-          DEFAULT: '#111614',
-          muted: '#5C635F',
-          soft: '#6B726E',
+          DEFAULT: 'rgb(var(--color-ink) / <alpha-value>)',
+          muted: 'rgb(var(--color-ink-muted) / <alpha-value>)',
+          soft: 'rgb(var(--color-ink-soft) / <alpha-value>)',
         },
-        line: '#E4E1D8',
+        line: 'rgb(var(--color-line) / <alpha-value>)',
         accent: {
-          DEFAULT: '#0F766E',
-          dark: '#0B5C55',
-          soft: '#E7F1ED',
+          DEFAULT: 'rgb(var(--color-accent) / <alpha-value>)',
+          dark: 'rgb(var(--color-accent-dark) / <alpha-value>)',
+          soft: 'rgb(var(--color-accent-soft) / <alpha-value>)',
         },
-        signal: '#2F9E76',
+        signal: 'rgb(var(--color-signal) / <alpha-value>)',
       },
       fontFamily: {
         display: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],

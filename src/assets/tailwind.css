@@ -3,12 +3,38 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-canvas: 247 246 241;
+    --color-surface: 255 255 255;
+    --color-ink: 17 22 20;
+    --color-ink-muted: 92 99 95;
+    --color-ink-soft: 107 114 110;
+    --color-line: 228 225 216;
+    --color-accent: 15 118 110;
+    --color-accent-dark: 11 92 85;
+    --color-accent-soft: 231 241 237;
+    --color-signal: 47 158 118;
+  }
+
+  .dark {
+    --color-canvas: 11 17 15;
+    --color-surface: 18 26 23;
+    --color-ink: 237 242 239;
+    --color-ink-muted: 162 175 169;
+    --color-ink-soft: 123 137 131;
+    --color-line: 34 48 42;
+    --color-accent: 52 211 153;
+    --color-accent-dark: 16 185 129;
+    --color-accent-soft: 16 44 37;
+    --color-signal: 110 231 183;
+  }
+
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-canvas font-sans text-ink antialiased;
+    @apply bg-canvas font-sans text-ink antialiased transition-colors duration-300;
   }
 
   section[id] {
@@ -20,7 +46,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid #0f766e;
+    outline: 2px solid rgb(var(--color-accent));
     outline-offset: 3px;
   }
 }
@@ -51,11 +77,11 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition duration-200 ease-smooth hover:bg-accent-dark;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-[#111614] px-5 py-3 text-sm font-semibold text-white transition duration-200 ease-smooth hover:bg-accent-dark dark:bg-accent dark:text-[#0B110F] dark:hover:bg-accent-dark;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface px-5 py-3 text-sm font-semibold text-ink transition duration-200 ease-smooth hover:border-ink/25 hover:bg-white;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface px-5 py-3 text-sm font-semibold text-ink transition duration-200 ease-smooth hover:border-ink/25 hover:bg-surface/80;
   }
 
   .chip {
@@ -67,56 +93,11 @@
   }
 
   .field-error {
-    @apply text-xs font-medium text-red-600;
+    @apply text-xs font-medium text-red-600 dark:text-red-400;
   }
 }
 
 @layer utilities {
-  .pixel-scene {
-    width: 320px;
-    height: 320px;
-    margin: 0 16px 16px 0;
-    image-rendering: pixelated;
-    transform-origin: bottom center;
-  }
-
-  .pixel-scene-inline {
-    display: inline-block;
-    width: 1.35em;
-    height: 1.35em;
-    margin: 0 0 0 0.25em;
-    vertical-align: middle;
-    opacity: 0.85;
-    image-rendering: pixelated;
-    transform-origin: bottom center;
-    animation: pixel-scene-bob 2.4s ease-in-out infinite;
-    transition: transform 180ms ease, opacity 180ms ease;
-  }
-
-  .pixel-scene-inline:hover {
-    opacity: 0.9;
-    transform: scale(1.12);
-    animation-duration: 1.2s;
-  }
-
-  .pixel-scene-inline .pixel-spark {
-    animation: pixel-sparkle 1.6s ease-in-out infinite;
-    transform-origin: center;
-  }
-
-  .pixel-scene-inline .pixel-spark-b {
-    animation-delay: 0.4s;
-  }
-
-  .pixel-scene-inline .pixel-pop {
-    animation: pixel-pop 1.8s ease-in-out infinite;
-    transform-origin: center;
-  }
-
-  .pixel-scene-inline .pixel-pulse {
-    animation: pixel-pulse 2s ease-in-out infinite;
-  }
-
   .pixel-robot-button {
     display: inline-block;
     margin: 0 0 0 0.25em;
@@ -187,32 +168,12 @@
     animation-delay: 0.25s;
   }
 
-  .pixel-check-pop {
-    animation: pixel-check-pop 1.2s ease-in-out infinite;
-    transform-origin: center;
-  }
-
-  .pixel-check-line {
-    animation: pixel-check-line 1.6s ease-in-out infinite;
-  }
-
-  .pixel-scene-enter-active,
-  .pixel-scene-leave-active {
-    transition: opacity 0.25s ease, transform 0.25s ease;
-  }
-
-  .pixel-scene-enter-from,
-  .pixel-scene-leave-to {
-    opacity: 0;
-    transform: translate3d(0, 6px, 0) scale(0.96);
-  }
-
   .cmd-type {
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
-    width: 22ch;
-    animation: type-in 1s steps(22, end) 0.3s both;
+    width: var(--cmd-ch, 22ch);
+    animation: type-in 0.85s steps(var(--cmd-steps, 22), end) 0.15s both;
   }
 
   .cmd-caret {
@@ -223,13 +184,13 @@
   }
 
   .report-check {
-    animation: check-in 0.45s ease-out both;
-    animation-delay: calc(1.15s + var(--i, 0) * 0.08s);
+    animation: check-in 0.4s ease-out both;
+    animation-delay: calc(0.85s + var(--i, 0) * 0.08s);
   }
 
   .report-pass {
-    animation: badge-pop 0.4s ease-out both;
-    animation-delay: calc(1.2s + var(--i, 0) * 0.08s);
+    animation: badge-pop 0.35s ease-out both;
+    animation-delay: calc(0.9s + var(--i, 0) * 0.08s);
   }
 
   .scrollbar-hide {
@@ -243,8 +204,8 @@
 
   .grid-bg {
     background-image:
-      linear-gradient(to right, rgba(17, 22, 20, 0.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(17, 22, 20, 0.045) 1px, transparent 1px);
+      linear-gradient(to right, rgb(var(--color-ink) / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--color-ink) / 0.045) 1px, transparent 1px);
     background-size: 64px 64px;
     -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black 20%, transparent 75%);
     mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, black 20%, transparent 75%);
@@ -257,6 +218,44 @@
     background-size: 56px 56px;
     -webkit-mask-image: radial-gradient(ellipse 80% 80% at 30% 20%, black 10%, transparent 70%);
     mask-image: radial-gradient(ellipse 80% 80% at 30% 20%, black 10%, transparent 70%);
+  }
+
+  .pixel-backdrop-hero {
+    image-rendering: pixelated;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.9) 28%, black 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.9) 28%, black 100%);
+  }
+
+  .pixel-backdrop-night {
+    image-rendering: pixelated;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, black 45%, black 100%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, black 45%, black 100%);
+  }
+
+  .pixel-backdrop-soft {
+    image-rendering: pixelated;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.9) 35%, black 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.9) 35%, black 100%);
+  }
+
+  .pixel-cloud-a {
+    animation: pixel-cloud-drift 26s linear infinite;
+  }
+
+  .pixel-cloud-b {
+    animation: pixel-cloud-drift 34s linear infinite reverse;
+  }
+
+  .pixel-star-a {
+    animation: pixel-star-twinkle 3.2s steps(2, end) infinite;
+  }
+
+  .pixel-star-b {
+    animation: pixel-star-twinkle 4.1s steps(2, end) 0.9s infinite;
+  }
+
+  .pixel-star-c {
+    animation: pixel-star-twinkle 2.8s steps(2, end) 1.6s infinite;
   }
 
   .reveal {
@@ -274,7 +273,7 @@
   }
 
   .skip-link {
-    @apply fixed left-3 top-3 z-[100] -translate-y-[150%] rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white shadow-lg transition-transform duration-200;
+    @apply fixed left-3 top-3 z-[100] -translate-y-[150%] rounded-full bg-[#111614] px-4 py-2 text-sm font-semibold text-white shadow-lg transition-transform duration-200 dark:bg-accent dark:text-[#0B110F];
   }
 
   .skip-link:focus {
@@ -312,7 +311,7 @@
     width: 0;
   }
   to {
-    width: 22ch;
+    width: var(--cmd-ch, 22ch);
   }
 }
 
@@ -383,50 +382,6 @@
   }
 }
 
-@keyframes pixel-scene-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-2px);
-  }
-}
-
-@keyframes pixel-sparkle {
-  0%,
-  100% {
-    opacity: 0.25;
-    transform: scale(0.8);
-  }
-  50% {
-    opacity: 0.9;
-    transform: scale(1.25);
-  }
-}
-
-@keyframes pixel-pop {
-  0%,
-  100% {
-    opacity: 0.6;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-}
-
-@keyframes pixel-pulse {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.7;
-  }
-}
-
 @keyframes pixel-robot-spark {
   0%,
   100% {
@@ -439,25 +394,23 @@
   }
 }
 
-@keyframes pixel-check-pop {
+@keyframes pixel-cloud-drift {
   0%,
   100% {
-    opacity: 0.75;
-    transform: scale(1);
+    transform: translateX(0);
   }
   50% {
-    opacity: 1;
-    transform: scale(1.12);
+    transform: translateX(10px);
   }
 }
 
-@keyframes pixel-check-line {
+@keyframes pixel-star-twinkle {
   0%,
   100% {
-    width: 18px;
+    opacity: 0.35;
   }
   50% {
-    width: 24px;
+    opacity: 1;
   }
 }
 
