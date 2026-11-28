@@ -1,7 +1,9 @@
-import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
+import { ref, reactive, onMounted, onBeforeUnmount, watch } from 'vue'
 import emailjs from '@emailjs/browser'
+import { useTheme } from '@/composables/useTheme'
 
 export function useContactForm({ serviceId, templateId, publicKey, turnstileSiteKey }) {
+  const { isDark } = useTheme()
   const turnstileContainer = ref(null)
   const turnstileToken = ref('')
   const formState = ref('idle')
@@ -10,8 +12,34 @@ export function useContactForm({ serviceId, templateId, publicKey, turnstileSite
   const errors = reactive({ name: '', email: '', message: '', turnstile: '' })
 
   let turnstileInterval
+  let widgetId = null
+
+  function renderTurnstile() {
+    if (!window.turnstile || !turnstileContainer.value || !turnstileSiteKey) return
+    if (widgetId !== null) {
+      try {
+        window.turnstile.remove(widgetId)
+      } catch {
+        // Ignore if widget is already unmounted
+      }
+      widgetId = null
+    }
+    turnstileToken.value = ''
+    widgetId = window.turnstile.render(turnstileContainer.value, {
+      sitekey: turnstileSiteKey,
+      theme: isDark.value ? 'dark' : 'light',
+      size: typeof window !== 'undefined' && window.innerWidth < 420 ? 'compact' : 'normal',
+      callback: (token) => { turnstileToken.value = token },
+      'expired-callback': () => { turnstileToken.value = '' },
+    })
+  }
 
   onMounted(() => {
+    if (!turnstileSiteKey) {
+      errors.turnstile = 'The security check is not configured.'
+      return
+    }
+
     if (!document.querySelector('script[src*="turnstile"]')) {
       const script = document.createElement('script')
       script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
@@ -26,11 +54,7 @@ export function useContactForm({ serviceId, templateId, publicKey, turnstileSite
       attempts += 1
 
       if (window.turnstile && turnstileContainer.value) {
-        window.turnstile.render(turnstileContainer.value, {
-          sitekey: turnstileSiteKey,
-          callback: (token) => { turnstileToken.value = token },
-          'expired-callback': () => { turnstileToken.value = '' },
-        })
+        renderTurnstile()
         clearInterval(turnstileInterval)
         return
       }
@@ -42,7 +66,22 @@ export function useContactForm({ serviceId, templateId, publicKey, turnstileSite
     }, 300)
   })
 
-  onBeforeUnmount(() => clearInterval(turnstileInterval))
+  watch(isDark, () => {
+    if (window.turnstile && turnstileContainer.value) {
+      renderTurnstile()
+    }
+  })
+
+  onBeforeUnmount(() => {
+    clearInterval(turnstileInterval)
+    if (widgetId !== null && window.turnstile) {
+      try {
+        window.turnstile.remove(widgetId)
+      } catch {
+        // Ignore cleanup errors
+      }
+    }
+  })
 
   function validate() {
     errors.name = ''

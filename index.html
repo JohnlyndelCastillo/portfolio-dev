@@ -11,6 +11,20 @@
     <meta name="author" content="Johnlyn del Castillo" />
     <meta name="theme-color" content="#F7F6F1" />
     <meta name="robots" content="index, follow" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('jdc-theme');
+          var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.style.colorScheme = 'dark';
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute('content', '#0B110F');
+          }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="canonical" href="https://johnlyndc.vercel.app/" />
 
     <meta property="og:type" content="website" />
@@ -21,12 +35,38 @@
       content="Test design, regression auditing, and QA workflows that make releases predictable."
     />
     <meta property="og:url" content="https://johnlyndc.vercel.app/" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content="https://johnlyndc.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Johnlyn del Castillo — Software QA Engineer portfolio preview"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Johnlyn del Castillo — Software QA Engineer" />
     <meta
       name="twitter:description"
       content="Test design, regression auditing, and QA workflows that make releases predictable."
     />
+    <meta name="twitter:image" content="https://johnlyndc.vercel.app/og-image.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Johnlyn del Castillo",
+        "jobTitle": "Junior Software QA Engineer",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Sun Asterisk Philippines"
+        },
+        "url": "https://johnlyndc.vercel.app/",
+        "sameAs": [
+          "https://www.linkedin.com/in/johnlyn-del-castillo",
+          "https://github.com/JohnlyndelCastillo"
+        ]
+      }
+    </script>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate icon" href="/favicon.ico" />

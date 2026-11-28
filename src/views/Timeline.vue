@@ -1,11 +1,11 @@
 <template>
-  <section id="experience" class="section-pad">
-    <div class="container-page">
+  <section id="experience" class="section-pad relative overflow-hidden">
+    <PixelBackdrop variant="experience" />
+    <div class="container-page relative z-10">
       <SectionHeader
         eyebrow="Experience"
         title="A short track record of shipping quality."
         description="From QA intern to full-time engineer — a timeline of learning how software breaks, and how to catch it early."
-        scene="experience"
       />
 
       <ol class="mt-12">
@@ -122,6 +122,7 @@
 <script setup>
 import { ref } from 'vue'
 import { Icon } from '@iconify/vue'
+import PixelBackdrop from '@/components/PixelBackdrop.vue'
 import SectionHeader from '@/components/SectionHeader.vue'
 import AwardModal from '@/components/AwardModal.vue'
 import { awards, timeline } from '@/data/timelineData'

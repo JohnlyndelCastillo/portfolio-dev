@@ -6,7 +6,7 @@
       aria-modal="true"
       aria-labelledby="award-dialog-title"
     >
-      <div class="absolute inset-0 bg-ink/60 backdrop-blur-sm" @click="emit('close')"></div>
+      <div class="absolute inset-0 bg-[#0C1311]/70 backdrop-blur-sm" @click="emit('close')"></div>
 
       <div
         ref="dialog"
@@ -67,7 +67,7 @@
           ></iframe>
 
           <div class="flex min-h-[40vh] flex-col items-center justify-center gap-4 p-8 text-center sm:hidden">
-            <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-500">
+            <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-red-500 dark:bg-red-950/40 dark:text-red-400">
               <Icon icon="mdi:file-pdf-box" class="text-3xl" aria-hidden="true" />
             </span>
             <div>

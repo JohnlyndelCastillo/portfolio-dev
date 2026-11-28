@@ -8,7 +8,7 @@
         @click="closeMenu"
       >
         <span
-          class="flex h-9 w-9 items-center justify-center rounded-xl bg-ink text-white shadow-sm transition duration-300 ease-smooth group-hover:bg-accent-dark"
+          class="flex h-9 w-9 items-center justify-center rounded-xl bg-[#111614] text-white shadow-sm transition duration-300 ease-smooth group-hover:bg-accent-dark dark:bg-[#16211D] dark:ring-1 dark:ring-white/10"
         >
           <Icon icon="mdi:check-bold" class="text-lg text-[#6EE7B7]" aria-hidden="true" />
         </span>
@@ -35,23 +35,49 @@
         </router-link>
       </nav>
 
-      <div class="hidden items-center gap-3 lg:flex">
+      <div class="hidden items-center gap-2 lg:flex">
+        <button
+          type="button"
+          class="flex h-9 w-9 items-center justify-center rounded-full border border-line bg-surface text-ink-muted transition hover:border-ink/25 hover:text-ink"
+          :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+          :title="isDark ? 'Light mode' : 'Dark mode'"
+          @click="toggleDark"
+        >
+          <Icon :icon="isDark ? 'mdi:weather-sunny' : 'mdi:weather-night'" class="text-base" aria-hidden="true" />
+        </button>
+        <router-link
+          to="/resume"
+          class="rounded-full px-3.5 py-2 text-sm font-medium text-ink-muted transition-colors duration-200 hover:text-ink"
+        >
+          Resume
+        </router-link>
         <router-link to="/#contact" class="btn-primary !px-4 !py-2.5 text-[13px]">
           Let's talk
           <Icon icon="mdi:arrow-up-right" class="text-base" aria-hidden="true" />
         </router-link>
       </div>
 
-      <button
-        type="button"
-        class="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink transition hover:border-ink/20 lg:hidden"
-        :aria-expanded="isOpen"
-        aria-controls="mobile-navigation"
-        :aria-label="isOpen ? 'Close navigation menu' : 'Open navigation menu'"
-        @click="toggleMenu"
-      >
-        <Icon :icon="isOpen ? 'mdi:close' : 'mdi:menu'" class="text-xl" aria-hidden="true" />
-      </button>
+      <div class="flex items-center gap-2 lg:hidden">
+        <button
+          type="button"
+          class="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink-muted transition hover:border-ink/20 hover:text-ink"
+          :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+          :title="isDark ? 'Light mode' : 'Dark mode'"
+          @click="toggleDark"
+        >
+          <Icon :icon="isDark ? 'mdi:weather-sunny' : 'mdi:weather-night'" class="text-lg" aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          class="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink transition hover:border-ink/20"
+          :aria-expanded="isOpen"
+          aria-controls="mobile-navigation"
+          :aria-label="isOpen ? 'Close navigation menu' : 'Open navigation menu'"
+          @click="toggleMenu"
+        >
+          <Icon :icon="isOpen ? 'mdi:close' : 'mdi:menu'" class="text-xl" aria-hidden="true" />
+        </button>
+      </div>
     </div>
 
     <Transition name="menu">
@@ -95,10 +121,12 @@ import { useRoute } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import { navItems } from '@/data/siteData'
 import { useScrollSpy } from '@/composables/useScrollSpy'
+import { useTheme } from '@/composables/useTheme'
 
 const route = useRoute()
 const isOpen = ref(false)
 const { active } = useScrollSpy(navItems.map((item) => item.id))
+const { isDark, toggleDark } = useTheme()
 
 let previousOverflow = ''
 
